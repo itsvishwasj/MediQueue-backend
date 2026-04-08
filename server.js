@@ -40,6 +40,9 @@ app.get('/', (req, res) => res.json({ message: 'MediQueue API running' }));
 // Make io accessible in routes
 app.set('io', io);
 
+// Health check route to keep the server awake
+app.get('/ping', (req, res) => res.status(200).send('Pong! Server is awake.'));
+
 // Socket.io
 require('./src/socket/queueSocket')(io);
 

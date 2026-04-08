@@ -7,8 +7,8 @@ const connectDB = require('./src/config/db');
 const path = require('path');
 
 const app = express();
-const httpServer = http.createServer(app);
-const io = new Server(httpServer, {
+const server = http.createServer(app);
+const io = new Server(server, {
   cors: { origin: '*' }
 });
 
@@ -53,5 +53,8 @@ app.get('/ping', (req, res) => res.status(200).send('Pong! Server is awake.'));
 // Socket.io
 require('./src/socket/queueSocket')(io);
 
-const PORT = process.env.PORT || 5000;
-httpServer.listen(PORT,'0.0.0.0', () => console.log(`Server running on port ${PORT}`));
+const PORT = process.env.PORT || 10000;
+
+server.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});

@@ -16,11 +16,14 @@ const io = new Server(httpServer, {
 connectDB();
 
 // Middleware
-app.use(cors({
-  origin: ['https://mediqueue-admin-portal.netlify.app', 'http://localhost:3000'],
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  credentials: true,
-}));
+app.use(cors());
+app.options('*', cors());
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+  next();
+});
 app.use(express.json());
 // Serve admin dashboard
 app.use(express.static('public'));

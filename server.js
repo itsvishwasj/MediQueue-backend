@@ -29,6 +29,10 @@ app.use(express.json());
 // Serve admin dashboard
 app.use(express.static('public'));
 
+app.get('/', (req, res) => {
+  res.status(200).send('MediQueue Backend is Live and Healthy!');
+});
+
 // Routes (we'll fill these in coming steps)
 app.use('/api/auth',         require('./src/routes/auth'));
 app.use('/api/hospitals',    require('./src/routes/hospitals'));
@@ -36,14 +40,6 @@ app.use('/api/doctors',      require('./src/routes/doctors'));
 app.use('/api/appointments', require('./src/routes/appointments'));
 app.use('/api/queue',        require('./src/routes/queue'));
 app.use('/api/ai', require('./src/routes/ai'));
-
-// Serve index.html at root
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
-});
-
-// Health check
-app.get('/', (req, res) => res.json({ message: 'MediQueue API running' }));
 
 // Make io accessible in routes
 app.set('io', io);
@@ -55,5 +51,5 @@ app.get('/ping', (req, res) => res.status(200).send('Pong! Server is awake.'));
 require('./src/socket/queueSocket')(io);
 
 server.listen(PORT, '0.0.0.0', () => {
-  console.log(`Server running on port ${PORT}`);
+  console.log(`Server is running on port ${PORT}`);
 });

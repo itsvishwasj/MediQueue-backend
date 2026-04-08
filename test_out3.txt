@@ -1,0 +1,5 @@
+Email: TEST_1775352621401@test.com
+Register status: 201
+Register data: {"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5ZDFiYjJlZWRiNjU5OTIwMDk1MTRiZCIsInJvbGUiOiJob3NwaXRhbCIsImhvc3BpdGFsSWQiOiI2OWQxYmIyZWVkYjY1OTkyMDA5NTE0YmYiLCJpYXQiOjE3NzUzNTI2MjIsImV4cCI6MTc3NTk1NzQyMn0.hFU8tMw-E2HB52AIYWVzG_rA-EsGi5mRd7tUlWj7Lmw","user":{"id":"69d1bb2eedb65992009514bd","name":"Test Hosp","email":"test_1775352621401@test.com","phone":"1234567890","role":"hospital","hospitalId":"69d1bb2eedb65992009514bf"}}
+Login status: 200
+Login data: {"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5ZDFiYjJlZWRiNjU5OTIwMDk1MTRiZCIsInJvbGUiOiJob3NwaXRhbCIsImhvc3BpdGFsSWQiOiI2OWQxYmIyZWVkYjY1OTkyMDA5NTE0YmYiLCJpYXQiOjE3NzUzNTI2MjIsImV4cCI6MTc3NTk1NzQyMn0.hFU8tMw-E2HB52AIYWVzG_rA-EsGi5mRd7tUlWj7Lmw","user":{"id":"69d1bb2eedb65992009514bd","name":"Test Hosp","email":"test_1775352621401@test.com","phone":"1234567890","role":"hospital","hospitalId":"69d1bb2eedb65992009514bf"}}

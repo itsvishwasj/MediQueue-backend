@@ -695,6 +695,18 @@
       const finalArray = Array.isArray(rawData) ? rawData : (rawData?.doctors || rawData?.data || []);
       allDoctors = Array.isArray(finalArray) ? [...finalArray] : [];
 
+      // Demo-safe fallback: if hospital filter returns nothing, load all doctors.
+      if (!allDoctors.length) {
+        const allRes = await fetch(`${API}/doctors`, { cache: 'no-store' });
+        const allData = await allRes.json();
+        const allRaw = allData;
+        const allList = Array.isArray(allRaw) ? allRaw : (allRaw?.doctors || allRaw?.data || []);
+        if (allRes.ok && Array.isArray(allList) && allList.length) {
+          allDoctors = [...allList];
+          console.warn('Hospital-filtered list empty. Showing all doctors as fallback.');
+        }
+      }
+
       renderDoctorsTable(allDoctors);
       populateQueueSel(allDoctors);
       updateDoctorStats(allDoctors);

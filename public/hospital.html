@@ -687,7 +687,7 @@
         return;
       }
       const data = await res.json();
-      console.log('API Response:', data);
+      console.log('RAW DATA FROM BACKEND:', data);
       if (!res.ok) throw new Error(data?.message || 'Failed to load doctors');
       allDoctors = normalizeDoctorsResponse(data);
       renderDoctorsTable(allDoctors);
@@ -914,6 +914,7 @@
 
   // ── RECEPTION QR (Hospital) ───────────────────────
   async function loadReceptionQR() {
+    console.log('Current Hospital ID for QR:', hospitalId);
     if (!hospitalId) {
       toast('Hospital session missing. Please sign in again.');
       return;
@@ -1025,6 +1026,8 @@
   function normalizeDoctorsResponse(data) {
     if (Array.isArray(data)) return data;
     if (Array.isArray(data?.doctors)) return data.doctors;
+    if (Array.isArray(data?.data)) return data.data;
+    console.error('Data received is not an array:', data);
     return [];
   }
   function escQ(str)      { return String(str||'').replace(/'/g,"\\'").replace(/"/g,"&quot;"); }

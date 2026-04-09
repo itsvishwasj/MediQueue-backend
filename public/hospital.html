@@ -677,8 +677,17 @@
   async function loadDoctors() {
     if (!hospitalId) return;
     try {
-      const res = await fetch(`${API}/doctors?hospitalId=${hospitalId}`);
+      const res = await fetch(`${API}/doctors?hospitalId=${hospitalId}`, { cache: 'no-store' });
+      if (res.status === 304) {
+        // Keep existing state when browser serves a not-modified response.
+        renderDoctorsTable(allDoctors);
+        populateQueueSel(allDoctors);
+        document.getElementById('st-docs').textContent  = allDoctors.length;
+        document.getElementById('st-depts').textContent = [...new Set(allDoctors.map(d=>d.department))].length;
+        return;
+      }
       const data = await res.json();
+      console.log('API Response:', data);
       if (!res.ok) throw new Error(data?.message || 'Failed to load doctors');
       allDoctors = normalizeDoctorsResponse(data);
       renderDoctorsTable(allDoctors);
@@ -910,7 +919,7 @@
       return;
     }
     try {
-      const res  = await fetch(`${API}/hospitals/${hospitalId}/reception-qr`);
+      const res  = await fetch(`${API}/hospitals/${hospitalId}/reception-qr`, { cache: 'no-store' });
       const data = await res.json();
       if (!res.ok) { toast('Failed to load Reception QR'); return; }
 
@@ -960,7 +969,7 @@
     if (!hospitalId) return;
     hideA('set-err'); hideA('set-ok');
     try {
-      const res  = await fetch(`${API}/hospitals`);
+      const res  = await fetch(`${API}/hospitals`, { cache: 'no-store' });
       const data = await res.json();
       if (!res.ok) throw new Error(data?.message || 'Failed to load hospitals');
       const list = Array.isArray(data) ? data : (Array.isArray(data?.hospitals) ? data.hospitals : []);

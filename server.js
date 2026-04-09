@@ -23,6 +23,10 @@ app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+  // Prevent stale 304-driven UI states for dynamic API payloads.
+  if (req.path.startsWith('/api/')) {
+    res.header('Cache-Control', 'no-store');
+  }
   next();
 });
 app.use(express.json());

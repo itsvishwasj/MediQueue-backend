@@ -675,41 +675,32 @@
 
   // ── DOCTORS ───────────────────────────────────────
   async function loadDoctors() {
-    const isBadId = !hospitalId || hospitalId === 'undefined' || hospitalId === 'null';
-    const activeHospitalId = isBadId ? DEMO_HOSPITAL_ID : hospitalId;
-
     try {
-      // Always fetch full doctors list first to avoid filter/path mismatch issues.
-      const res = await fetch(`${API}/doctors`, { cache: 'no-store' });
-      const data = await res.json();
-      console.log('HACKATHON DEBUG - Data received:', data);
-      if (!res.ok) throw new Error(data?.message || 'Failed to load doctors');
+      const activeHospitalId = hospitalId || DEMO_HOSPITAL_ID;
+      const res = await fetch(`https://mediqueue-backend-el5a.onrender.com/api/doctors?hospitalId=${activeHospitalId}`, { cache: 'no-store' });
+      const responseData = await res.json();
 
-      const allRaw = data;
-      const allList = Array.isArray(allRaw) ? allRaw : (allRaw?.doctors || allRaw?.data || []);
-      const normalizedAll = Array.isArray(allList) ? [...allList] : [];
+      // Debug: inspect real API shape in browser console
+      console.log('HOSPITAL DATA CHECK:', responseData);
 
-      // Prefer hospital-specific subset when it exists; otherwise show all for demo safety.
-      const filtered = normalizedAll.filter(d => {
-        const hid = typeof d?.hospital === 'object' ? d?.hospital?._id : d?.hospital;
-        return String(hid || '') === String(activeHospitalId || '');
-      });
-      allDoctors = filtered.length ? filtered : normalizedAll;
-      if (!filtered.length) {
-        console.warn('Hospital-specific subset empty. Showing all doctors fallback.');
+      const incomingData = responseData?.doctors || responseData?.data || responseData;
+
+      if (Array.isArray(incomingData)) {
+        allDoctors = [...incomingData];
+      } else {
+        console.error('Data is not an array. Check API structure.');
+        allDoctors = [];
       }
 
       renderDoctorsTable(allDoctors);
       populateQueueSel(allDoctors);
       updateDoctorStats(allDoctors);
-      if (!allDoctors.length) toast('No doctors found in backend response');
-    } catch (e) {
-      console.error('Critical Fetch Error:', e);
+    } catch (err) {
+      console.error('API Connection failed:', err);
       allDoctors = [];
       renderDoctorsTable(allDoctors);
       populateQueueSel(allDoctors);
       updateDoctorStats(allDoctors);
-      toast('Could not load doctors');
     }
   }
   function renderDoctorsTable(docs) {

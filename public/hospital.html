@@ -676,20 +676,17 @@
   // ── DOCTORS ───────────────────────────────────────
   async function loadDoctors() {
     try {
-      const activeHospitalId = hospitalId || DEMO_HOSPITAL_ID;
-      const res = await fetch(`https://mediqueue-backend-el5a.onrender.com/api/doctors?hospitalId=${activeHospitalId}`, { cache: 'no-store' });
+      // Guaranteed visibility: load all doctors directly from backend.
+      const res = await fetch('https://mediqueue-backend-el5a.onrender.com/api/doctors', { cache: 'no-store' });
       const responseData = await res.json();
 
-      // Debug: inspect real API shape in browser console
       console.log('HOSPITAL DATA CHECK:', responseData);
 
       const incomingData = responseData?.doctors || responseData?.data || responseData;
+      allDoctors = Array.isArray(incomingData) ? [...incomingData] : [];
 
-      if (Array.isArray(incomingData)) {
-        allDoctors = [...incomingData];
-      } else {
+      if (!Array.isArray(incomingData)) {
         console.error('Data is not an array. Check API structure.');
-        allDoctors = [];
       }
 
       renderDoctorsTable(allDoctors);

@@ -506,6 +506,7 @@
   let socket = null, currentDoctorId = null, allDoctors = [];
   let hospitalDepartments = [];
   let pendingDeleteId = null, pendingDeleteName = '';
+  const DEMO_HOSPITAL_ID = '69d20400dcc05573cc367d24';
   const STORAGE_KEYS = {
     token: 'mq_hospital_token',
     hospitalId: 'mq_hospital_id',
@@ -675,32 +676,34 @@
 
   // ── DOCTORS ───────────────────────────────────────
   async function loadDoctors() {
-    if (!hospitalId) return;
+    const activeHospitalId = hospitalId || DEMO_HOSPITAL_ID;
+    if (!activeHospitalId) return;
     try {
-      const res = await fetch(`${API}/doctors?hospitalId=${hospitalId}`, { cache: 'no-store' });
+      const res = await fetch(`${API}/doctors?hospitalId=${activeHospitalId}`, { cache: 'no-store' });
       if (res.status === 304) {
         // Keep existing state when browser serves a not-modified response.
         renderDoctorsTable(allDoctors);
         populateQueueSel(allDoctors);
-        document.getElementById('st-docs').textContent  = allDoctors.length;
-        document.getElementById('st-depts').textContent = [...new Set(allDoctors.map(d=>d.department))].length;
+        updateDoctorStats(allDoctors);
         return;
       }
       const data = await res.json();
-      console.log('Backend Sent:', data);
+      console.log('HACKATHON DEBUG - Data received:', data);
       if (!res.ok) throw new Error(data?.message || 'Failed to load doctors');
-      allDoctors = normalizeDoctorsResponse(data);
+
+      const rawData = data;
+      const finalArray = Array.isArray(rawData) ? rawData : (rawData?.doctors || rawData?.data || []);
+      allDoctors = Array.isArray(finalArray) ? [...finalArray] : [];
+
       renderDoctorsTable(allDoctors);
       populateQueueSel(allDoctors);
-      document.getElementById('st-docs').textContent  = allDoctors.length;
-      document.getElementById('st-depts').textContent = [...new Set(allDoctors.map(d=>d.department))].length;
+      updateDoctorStats(allDoctors);
     } catch(e) {
       allDoctors = [];
       renderDoctorsTable(allDoctors);
       populateQueueSel(allDoctors);
-      document.getElementById('st-docs').textContent = '0';
-      document.getElementById('st-depts').textContent = '0';
-      console.error('Connection failed:', e);
+      updateDoctorStats(allDoctors);
+      console.error('Critical Fetch Error:', e);
       toast('Could not load doctors');
     }
   }
@@ -879,7 +882,8 @@
     const el = document.getElementById('qr-inline');
     el.innerHTML = '';
     if (!doctorId) return;
-    new QRCode(el, { text:`mediqueue://book?doctorId=${doctorId}&hospitalId=${hospitalId}`, width:120, height:120, colorDark:'#0F172A', colorLight:'#F0F4FF', correctLevel:QRCode.CorrectLevel.H });
+    const qrHospitalId = hospitalId || DEMO_HOSPITAL_ID;
+    new QRCode(el, { text:`mediqueue://book?doctorId=${doctorId}&hospitalId=${qrHospitalId}`, width:120, height:120, colorDark:'#0F172A', colorLight:'#F0F4FF', correctLevel:QRCode.CorrectLevel.H });
   }
 
   function openCabinQRModal() {
@@ -893,7 +897,8 @@
     document.getElementById('m-dept').textContent     = `${dept} · ${hospitalName}`;
     const el = document.getElementById('qr-render');
     el.innerHTML = '';
-    new QRCode(el, { text:`mediqueue://book?doctorId=${doctorId}&hospitalId=${hospitalId}`, width:180, height:180, colorDark:'#0F172A', colorLight:'#FFFFFF', correctLevel:QRCode.CorrectLevel.H });
+    const qrHospitalId = hospitalId || DEMO_HOSPITAL_ID;
+    new QRCode(el, { text:`mediqueue://book?doctorId=${doctorId}&hospitalId=${qrHospitalId}`, width:180, height:180, colorDark:'#0F172A', colorLight:'#FFFFFF', correctLevel:QRCode.CorrectLevel.H });
     openModal('modal-cabin-qr');
   }
 
@@ -915,12 +920,10 @@
   // ── RECEPTION QR (Hospital) ───────────────────────
   async function loadReceptionQR() {
     console.log('Current Hospital ID for QR:', hospitalId);
-    if (!hospitalId) {
-      toast('Hospital session missing. Please sign in again.');
-      return;
-    }
+    const qrHospitalId = hospitalId || DEMO_HOSPITAL_ID;
+    if (!hospitalId) console.warn('Using demo fallback hospital ID for QR:', DEMO_HOSPITAL_ID);
     try {
-      const res  = await fetch(`${API}/hospitals/${hospitalId}/reception-qr`, { cache: 'no-store' });
+      const res  = await fetch(`${API}/hospitals/${qrHospitalId}/reception-qr`, { cache: 'no-store' });
       const data = await res.json();
       if (!res.ok) { toast('Failed to load Reception QR'); return; }
 
@@ -945,10 +948,10 @@
       // Fallback: generate client-side if backend QR route not yet deployed
       const el = document.getElementById('qr-reception-render');
       el.innerHTML = '';
-      new QRCode(el, { text:`mediqueue://hospital?id=${hospitalId}`, width:200, height:200, colorDark:'#0F172A', colorLight:'#F0F4FF', correctLevel:QRCode.CorrectLevel.H });
+      new QRCode(el, { text:`mediqueue://hospital?id=${qrHospitalId}`, width:200, height:200, colorDark:'#0F172A', colorLight:'#F0F4FF', correctLevel:QRCode.CorrectLevel.H });
       document.getElementById('reception-qr-card').style.display = 'block';
       document.getElementById('reception-hosp-name').textContent = hospitalName;
-      document.getElementById('reception-qr-payload').textContent = `mediqueue://hospital?id=${hospitalId}`;
+      document.getElementById('reception-qr-payload').textContent = `mediqueue://hospital?id=${qrHospitalId}`;
     }
   }
 
@@ -1023,6 +1026,12 @@
   function showA(id, msg) { const el=document.getElementById(id); el.style.display='flex'; document.getElementById(`${id}-msg`).textContent=msg; }
   function hideA(id)      { document.getElementById(id).style.display='none'; }
   function toast(msg)     { const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),3000); }
+  function updateDoctorStats(doctors) {
+    const list = Array.isArray(doctors) ? doctors : [];
+    document.getElementById('st-docs').textContent = String(list.length);
+    const uniqueDepts = [...new Set(list.map(d => d?.department).filter(Boolean))];
+    document.getElementById('st-depts').textContent = String(uniqueDepts.length);
+  }
   function normalizeDoctorsResponse(data) {
     if (Array.isArray(data)) return data;
     if (Array.isArray(data?.doctors)) return data.doctors;

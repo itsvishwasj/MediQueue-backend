@@ -891,12 +891,23 @@
   }
 
   // ── CABIN QR (Doctor) ─────────────────────────────
-  function generateCabinQR(doctorId) {
+  async function generateCabinQR(doctorId) {
     const el = document.getElementById('qr-inline');
     el.innerHTML = '';
     if (!doctorId) return;
     const qrHospitalId = hospitalId || DEMO_HOSPITAL_ID;
-    new QRCode(el, { text:`mediqueue://book?doctorId=${doctorId}&hospitalId=${qrHospitalId}`, width:120, height:120, colorDark:'#0F172A', colorLight:'#F0F4FF', correctLevel:QRCode.CorrectLevel.H });
+    try {
+      const res = await fetch(`${API}/hospitals/${qrHospitalId}/cabin-qr/${doctorId}`, { cache: 'no-store' });
+      const data = await res.json();
+      if (!res.ok || !data?.qrDataUrl) throw new Error(data?.message || 'Failed to generate cabin QR');
+      const img = document.createElement('img');
+      img.src = data.qrDataUrl;
+      img.style.cssText = 'width:120px;height:120px;border-radius:8px;';
+      el.appendChild(img);
+    } catch (e) {
+      el.innerHTML = `<p style="font-size:11px;color:var(--muted);word-break:break-all;">mediqueue://book?doctorId=${doctorId}&hospitalId=${qrHospitalId}</p>`;
+      console.error('Cabin QR render failed:', e);
+    }
   }
 
   function openCabinQRModal() {
@@ -905,13 +916,24 @@
     openCabinQRForDoctor(currentDoctorId, doc?.name||'Doctor', doc?.department||'');
   }
 
-  function openCabinQRForDoctor(doctorId, name, dept) {
+  async function openCabinQRForDoctor(doctorId, name, dept) {
     document.getElementById('m-doc-name').textContent = name;
-    document.getElementById('m-dept').textContent     = `${dept} · ${hospitalName}`;
+    document.getElementById('m-dept').textContent     = `${dept} � ${hospitalName}`;
     const el = document.getElementById('qr-render');
     el.innerHTML = '';
     const qrHospitalId = hospitalId || DEMO_HOSPITAL_ID;
-    new QRCode(el, { text:`mediqueue://book?doctorId=${doctorId}&hospitalId=${qrHospitalId}`, width:180, height:180, colorDark:'#0F172A', colorLight:'#FFFFFF', correctLevel:QRCode.CorrectLevel.H });
+    try {
+      const res = await fetch(`${API}/hospitals/${qrHospitalId}/cabin-qr/${doctorId}`, { cache: 'no-store' });
+      const data = await res.json();
+      if (!res.ok || !data?.qrDataUrl) throw new Error(data?.message || 'Failed to generate cabin QR');
+      const img = document.createElement('img');
+      img.src = data.qrDataUrl;
+      img.style.cssText = 'width:180px;height:180px;border-radius:8px;';
+      el.appendChild(img);
+    } catch (e) {
+      el.innerHTML = `<p style="font-size:11px;color:var(--muted);word-break:break-all;">mediqueue://book?doctorId=${doctorId}&hospitalId=${qrHospitalId}</p>`;
+      console.error('Cabin QR modal render failed:', e);
+    }
     openModal('modal-cabin-qr');
   }
 

@@ -101,4 +101,29 @@ router.get('/:id/reception-qr', async (req, res) => {
   }
 });
 
+// GET /api/hospitals/:id/cabin-qr/:doctorId - Generate doctor cabin QR
+router.get('/:id/cabin-qr/:doctorId', async (req, res) => {
+  try {
+    const hospital = await Hospital.findById(req.params.id);
+    if (!hospital) return res.status(404).json({ message: 'Hospital not found' });
+
+    const doctor = await Doctor.findById(req.params.doctorId);
+    if (!doctor) return res.status(404).json({ message: 'Doctor not found' });
+
+    const payload = `mediqueue://book?doctorId=${req.params.doctorId}&hospitalId=${req.params.id}`;
+    const qrDataUrl = await QRCode.toDataURL(payload, {
+      width: 400, margin: 2, color: { dark: '#0F172A', light: '#FFFFFF' }
+    });
+
+    res.json({
+      hospitalId: req.params.id,
+      doctorId: req.params.doctorId,
+      payload,
+      qrDataUrl
+    });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
 module.exports = router;

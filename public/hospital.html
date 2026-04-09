@@ -506,6 +506,11 @@
   let socket = null, currentDoctorId = null, allDoctors = [];
   let hospitalDepartments = [];
   let pendingDeleteId = null, pendingDeleteName = '';
+  const STORAGE_KEYS = {
+    token: 'mq_hospital_token',
+    hospitalId: 'mq_hospital_id',
+    hospitalName: 'mq_hospital_name'
+  };
 
   // ── INIT ──────────────────────────────────────────
   window.onload = () => {
@@ -513,7 +518,30 @@
     document.querySelectorAll('.overlay').forEach(o => {
       o.addEventListener('click', e => { if (e.target === o) o.classList.remove('show'); });
     });
+    restoreSession();
+    if (hospitalId && hospitalName) {
+      openDashboard();
+    }
   };
+
+  function persistSession() {
+    if (!hospitalId || !hospitalName || !hospitalToken) return;
+    localStorage.setItem(STORAGE_KEYS.token, hospitalToken);
+    localStorage.setItem(STORAGE_KEYS.hospitalId, hospitalId);
+    localStorage.setItem(STORAGE_KEYS.hospitalName, hospitalName);
+  }
+
+  function restoreSession() {
+    hospitalToken = localStorage.getItem(STORAGE_KEYS.token);
+    hospitalId = localStorage.getItem(STORAGE_KEYS.hospitalId);
+    hospitalName = localStorage.getItem(STORAGE_KEYS.hospitalName) || '';
+  }
+
+  function clearSession() {
+    localStorage.removeItem(STORAGE_KEYS.token);
+    localStorage.removeItem(STORAGE_KEYS.hospitalId);
+    localStorage.removeItem(STORAGE_KEYS.hospitalName);
+  }
 
   // ── AUTH TAB SWITCH ───────────────────────────────
   function switchAuthTab(id, btn) {
@@ -539,6 +567,7 @@
       hospitalToken = data.token;
       hospitalId    = data.user.hospitalId;
       hospitalName  = data.user.name;
+      persistSession();
       openDashboard();
     } catch(e) { showA('login-err','Server error. Is backend running?'); }
     finally { btn.textContent = 'Sign In →'; btn.disabled = false; }
@@ -578,6 +607,7 @@
         hospitalToken = lData.token;
         hospitalId    = lData.user.hospitalId;
         hospitalName  = lData.user.name;
+        persistSession();
         openDashboard();
       } else {
         // Registration succeeded but auto-login failed — ask user to sign in
@@ -593,6 +623,7 @@
   function doLogout() {
     hospitalId = null; hospitalName = ''; hospitalToken = null;
     allDoctors = []; currentDoctorId = null;
+    clearSession();
     if (socket) socket.disconnect();
     document.getElementById('dashboard').style.display = 'none';
     document.getElementById('sidebar').style.display   = 'none';
@@ -647,12 +678,22 @@
     if (!hospitalId) return;
     try {
       const res = await fetch(`${API}/doctors?hospitalId=${hospitalId}`);
-      allDoctors = await res.json();
+      const data = await res.json();
+      if (!res.ok) throw new Error(data?.message || 'Failed to load doctors');
+      allDoctors = normalizeDoctorsResponse(data);
       renderDoctorsTable(allDoctors);
       populateQueueSel(allDoctors);
       document.getElementById('st-docs').textContent  = allDoctors.length;
       document.getElementById('st-depts').textContent = [...new Set(allDoctors.map(d=>d.department))].length;
-    } catch(e) { console.error(e); }
+    } catch(e) {
+      allDoctors = [];
+      renderDoctorsTable(allDoctors);
+      populateQueueSel(allDoctors);
+      document.getElementById('st-docs').textContent = '0';
+      document.getElementById('st-depts').textContent = '0';
+      console.error('loadDoctors error:', e);
+      toast('Could not load doctors');
+    }
   }
 
   function renderDoctorsTable(docs) {
@@ -864,6 +905,10 @@
 
   // ── RECEPTION QR (Hospital) ───────────────────────
   async function loadReceptionQR() {
+    if (!hospitalId) {
+      toast('Hospital session missing. Please sign in again.');
+      return;
+    }
     try {
       const res  = await fetch(`${API}/hospitals/${hospitalId}/reception-qr`);
       const data = await res.json();
@@ -916,7 +961,9 @@
     hideA('set-err'); hideA('set-ok');
     try {
       const res  = await fetch(`${API}/hospitals`);
-      const list = await res.json();
+      const data = await res.json();
+      if (!res.ok) throw new Error(data?.message || 'Failed to load hospitals');
+      const list = Array.isArray(data) ? data : (Array.isArray(data?.hospitals) ? data.hospitals : []);
       const h    = list.find(x => x._id === hospitalId);
       if (!h) return;
       hospitalDepartments = h.departments || [];
@@ -924,7 +971,7 @@
       document.getElementById('set-addr').value  = h.address || '';
       document.getElementById('set-depts').value = hospitalDepartments.join(', ');
       populateDeptDropdowns();
-    } catch(e) { console.error(e); }
+    } catch(e) { console.error('loadSettingsForm error:', e); }
   }
 
   function populateDeptDropdowns() {
@@ -966,6 +1013,11 @@
   function showA(id, msg) { const el=document.getElementById(id); el.style.display='flex'; document.getElementById(`${id}-msg`).textContent=msg; }
   function hideA(id)      { document.getElementById(id).style.display='none'; }
   function toast(msg)     { const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),3000); }
+  function normalizeDoctorsResponse(data) {
+    if (Array.isArray(data)) return data;
+    if (Array.isArray(data?.doctors)) return data.doctors;
+    return [];
+  }
   function escQ(str)      { return String(str||'').replace(/'/g,"\\'").replace(/"/g,"&quot;"); }
 </script>
 </body>

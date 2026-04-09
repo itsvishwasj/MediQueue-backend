@@ -25,6 +25,17 @@ router.get('/', async (req, res) => {
   }
 });
 
+// GET /api/hospitals/:id - Get single hospital details
+router.get('/:id', async (req, res) => {
+  try {
+    const hospital = await Hospital.findById(req.params.id);
+    if (!hospital) return res.status(404).json({ message: 'Hospital not found' });
+    res.json(hospital);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
 // GET /api/hospitals/:id/departments - Get departments for a hospital
 router.get('/:id/departments', async (req, res) => {
   try {

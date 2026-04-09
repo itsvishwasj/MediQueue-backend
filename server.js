@@ -36,6 +36,7 @@ app.get('/', (req, res) => {
 // Routes (we'll fill these in coming steps)
 app.use('/api/auth',         require('./src/routes/auth'));
 app.use('/api/hospitals',    require('./src/routes/hospitals'));
+app.use('/api/hospital-details', require('./src/routes/hospitalDetails'));
 app.use('/api/doctors',      require('./src/routes/doctors'));
 app.use('/api/appointments', require('./src/routes/appointments'));
 app.use('/api/queue',        require('./src/routes/queue'));

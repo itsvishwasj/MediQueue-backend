@@ -676,17 +676,18 @@
 
   // ── DOCTORS ───────────────────────────────────────
   async function loadDoctors() {
-    const activeHospitalId = hospitalId || DEMO_HOSPITAL_ID;
+    const isBadId = !hospitalId || hospitalId === 'undefined' || hospitalId === 'null';
+    const activeHospitalId = isBadId ? DEMO_HOSPITAL_ID : hospitalId;
     if (!activeHospitalId) return;
     try {
       const res = await fetch(`${API}/doctors?hospitalId=${activeHospitalId}`, { cache: 'no-store' });
       if (res.status === 304) {
-        // Keep existing state when browser serves a not-modified response.
         renderDoctorsTable(allDoctors);
         populateQueueSel(allDoctors);
         updateDoctorStats(allDoctors);
         return;
       }
+
       const data = await res.json();
       console.log('HACKATHON DEBUG - Data received:', data);
       if (!res.ok) throw new Error(data?.message || 'Failed to load doctors');
@@ -695,7 +696,6 @@
       const finalArray = Array.isArray(rawData) ? rawData : (rawData?.doctors || rawData?.data || []);
       allDoctors = Array.isArray(finalArray) ? [...finalArray] : [];
 
-      // Demo-safe fallback: if hospital filter returns nothing, load all doctors.
       if (!allDoctors.length) {
         const allRes = await fetch(`${API}/doctors`, { cache: 'no-store' });
         const allData = await allRes.json();
@@ -710,16 +710,28 @@
       renderDoctorsTable(allDoctors);
       populateQueueSel(allDoctors);
       updateDoctorStats(allDoctors);
-    } catch(e) {
-      allDoctors = [];
+    } catch (e) {
+      console.error('Critical Fetch Error:', e);
+      try {
+        const allRes = await fetch(`${API}/doctors`, { cache: 'no-store' });
+        const allData = await allRes.json();
+        const allRaw = allData;
+        const allList = Array.isArray(allRaw) ? allRaw : (allRaw?.doctors || allRaw?.data || []);
+        allDoctors = (allRes.ok && Array.isArray(allList)) ? [...allList] : [];
+        if (allDoctors.length) {
+          console.warn('Filtered fetch failed. Showing all doctors as emergency fallback.');
+        }
+      } catch (fallbackErr) {
+        console.error('Emergency fallback failed:', fallbackErr);
+        allDoctors = [];
+      }
+
       renderDoctorsTable(allDoctors);
       populateQueueSel(allDoctors);
       updateDoctorStats(allDoctors);
-      console.error('Critical Fetch Error:', e);
-      toast('Could not load doctors');
+      if (!allDoctors.length) toast('No doctors could be loaded');
     }
   }
-
   function renderDoctorsTable(docs) {
     const tbody = document.getElementById('doc-tbl-body');
     const safeDoctors = Array.isArray(docs) ? docs : [];

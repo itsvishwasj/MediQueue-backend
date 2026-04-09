@@ -710,25 +710,26 @@
 
   function renderDoctorsTable(docs) {
     const tbody = document.getElementById('doc-tbl-body');
-    if (!docs.length) {
-      tbody.innerHTML = `<tr><td colspan="4"><div class="empty"><div class="e-ico">🩺</div><p>No doctors added yet. Add your first doctor!</p></div></td></tr>`;
+    const safeDoctors = Array.isArray(docs) ? docs : [];
+    if (!safeDoctors.length) {
+      tbody.innerHTML = `<tr><td colspan="4" style="padding:40px 16px;text-align:center;color:var(--muted);"><div style="display:flex;flex-direction:column;align-items:center;gap:8px;"><p>No doctors found for this Hospital ID.</p><p style="font-size:12px;">Check console for raw data log.</p></div></td></tr>`;
       return;
     }
-    tbody.innerHTML = docs.map(d => `
+    tbody.innerHTML = safeDoctors.map((d, index) => `
       <tr>
         <td>
           <div style="display:flex;align-items:center;gap:10px;">
-            <div style="width:32px;height:32px;background:var(--primary-lt);border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:14px;">👨‍⚕️</div>
-            <strong>${d.name}</strong>
+            <div style="width:32px;height:32px;background:var(--primary-lt);border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;">DR</div>
+            <strong>${d?.name || 'Unknown Doctor'}</strong>
           </div>
         </td>
-        <td><span class="tag tag-blue">${d.department}</span></td>
-        <td style="color:var(--muted);">~${d.avgConsultationTime} min</td>
+        <td><span class="tag tag-blue">${d?.department || 'General'}</span></td>
+        <td style="color:var(--muted);">~${d?.avgConsultationTime || d?.avgTime || 15} min</td>
         <td>
           <div style="display:flex;gap:6px;">
-            <button class="btn btn-outline btn-sm" onclick="openCabinQRForDoctor('${d._id}','${escQ(d.name)}','${escQ(d.department)}')">📷 QR</button>
-            <button class="btn btn-ghost btn-sm" onclick="editDoctor('${d._id}','${escQ(d.name)}','${escQ(d.department)}','${d.avgConsultationTime}')">✏️ Edit</button>
-            <button class="btn btn-danger btn-sm" onclick="confirmDeleteDoctor('${d._id}','${escQ(d.name)}')">🗑</button>
+            <button class="btn btn-outline btn-sm" onclick="openCabinQRForDoctor('${d?._id || ''}','${escQ(d?.name || 'Unknown Doctor')}','${escQ(d?.department || 'General')}')">QR</button>
+            <button class="btn btn-ghost btn-sm" onclick="editDoctor('${d?._id || ''}','${escQ(d?.name || 'Unknown Doctor')}','${escQ(d?.department || 'General')}','${d?.avgConsultationTime || d?.avgTime || 15}')">Edit</button>
+            <button class="btn btn-danger btn-sm" onclick="confirmDeleteDoctor('${d?._id || index}','${escQ(d?.name || 'Unknown Doctor')}')">Delete</button>
           </div>
         </td>
       </tr>`).join('');

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>MediQueue - Hospital Portal</title>
+  <title>MediQueue — Hospital Portal</title>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,700;9..40,800;9..40,900&display=swap" rel="stylesheet"/>
   <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
@@ -178,31 +178,6 @@
     .reception-hero{text-align:center;padding:32px 24px;background:linear-gradient(135deg,var(--primary-lt) 0%,rgba(0,201,122,0.05) 100%);border-radius:18px;border:1px dashed rgba(37,99,235,0.2);margin-bottom:20px;}
     .reception-hero h3{font-size:17px;font-weight:900;margin-bottom:6px;}
     .reception-hero p{font-size:13px;color:var(--muted);max-width:320px;margin:0 auto 16px;}
-
-    /* ── LOCATION PICKER ── */
-    .loc-picker{position:relative;margin-bottom:14px;}
-    .loc-picker>label{display:block;font-size:12px;font-weight:700;color:var(--mid);margin-bottom:6px;}
-    .loc-search-wrap{position:relative;display:flex;align-items:center;}
-    .loc-search-wrap .loc-icon{position:absolute;left:12px;font-size:15px;pointer-events:none;line-height:1;}
-    .loc-search-wrap input{width:100%;padding:10px 13px 10px 36px;border:1.5px solid rgba(37,99,235,0.12);border-radius:10px;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--ink);background:var(--surface);outline:none;transition:border-color 0.2s,box-shadow 0.2s;}
-    .loc-search-wrap input:focus{border-color:var(--primary);box-shadow:0 0 0 3px var(--primary-lt);}
-    .loc-search-wrap input.loc-selected{border-color:var(--success);box-shadow:0 0 0 3px rgba(0,201,122,0.1);}
-    .loc-spinner{position:absolute;right:12px;width:14px;height:14px;border:2px solid var(--border);border-top-color:var(--primary);border-radius:50%;animation:loc-spin 0.7s linear infinite;display:none;}
-    @keyframes loc-spin{to{transform:rotate(360deg);}}
-    .loc-dropdown{position:absolute;top:calc(100% + 6px);left:0;right:0;background:var(--surface);border:1.5px solid var(--border);border-radius:12px;box-shadow:0 12px 32px rgba(37,99,235,0.12);z-index:9999;display:none;max-height:240px;overflow-y:auto;}
-    .loc-dropdown.open{display:block;}
-    .loc-item{padding:11px 14px;cursor:pointer;border-bottom:1px solid var(--border);transition:background 0.12s;}
-    .loc-item:last-child{border-bottom:none;}
-    .loc-item:hover{background:var(--primary-lt);}
-    .loc-item-name{font-size:13px;font-weight:700;color:var(--ink);margin-bottom:2px;}
-    .loc-item-addr{font-size:11px;color:var(--muted);line-height:1.4;}
-    .loc-item-msg{padding:12px 14px;font-size:13px;color:var(--muted);text-align:center;}
-    .loc-confirmed{display:none;align-items:center;gap:8px;background:var(--success-lt);border:1px solid rgba(0,201,122,0.25);border-radius:8px;padding:8px 12px;margin-top:8px;}
-    .loc-confirmed.show{display:flex;}
-    .loc-confirmed .loc-pin{font-size:14px;}
-    .loc-confirmed .loc-coords{font-size:11px;font-weight:700;color:#065F46;flex:1;}
-    .loc-confirmed .loc-clear{font-size:11px;color:var(--muted);background:none;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;padding:2px 6px;border-radius:6px;transition:background 0.15s,color 0.15s;}
-    .loc-confirmed .loc-clear:hover{background:rgba(240,59,59,0.08);color:var(--danger);}
   </style>
 </head>
 <body>
@@ -230,10 +205,10 @@
         <div id="login-err" class="alert alert-error" style="display:none;"><span id="login-err-msg"></span></div>
         <div class="fg"><label>Email Address *</label><input id="l-email" type="email" placeholder="hospital@email.com"/></div>
         <div class="fg"><label>Password *</label><input id="l-pass" type="password" placeholder="Your password"/></div>
-        <button class="btn btn-primary btn-full" id="btn-login" onclick="doLogin()" style="margin-top:4px;">Sign In -></button>
+        <button class="btn btn-primary btn-full" id="btn-login" onclick="doLogin()" style="margin-top:4px;">Sign In →</button>
         <div style="text-align:center;margin-top:14px;">
           <span style="font-size:12px;color:var(--muted);">No account yet? </span>
-          <button onclick="switchAuthTab('t-register',document.querySelectorAll('.auth-tab')[1])" style="border:none;background:none;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:700;color:var(--primary);cursor:pointer;">Register -></button>
+          <button onclick="switchAuthTab('t-register',document.querySelectorAll('.auth-tab')[1])" style="border:none;background:none;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:700;color:var(--primary);cursor:pointer;">Register →</button>
         </div>
       </div>
     </div>
@@ -243,27 +218,7 @@
       <div class="card">
         <div id="reg-err" class="alert alert-error" style="display:none;"><span id="reg-err-msg"></span></div>
         <div class="fg"><label>Hospital Name *</label><input id="r-name" placeholder="e.g. Apollo Clinic"/></div>
-        <div class="loc-picker">
-          <label>📍 Find Your Location *</label>
-          <div class="loc-search-wrap">
-            <span class="loc-icon">🏥</span>
-            <input type="text" id="registerHospitalSearch" autocomplete="off"
-                   placeholder="Enter full name (eg., Apollo Clinic)"
-                   oninput="handleRegisterHospitalSearch(this.value)"
-                   onblur="setTimeout(()=>document.getElementById('registerSearchResults').classList.remove('open'),200)"/>
-            <div class="loc-spinner" id="reg-spinner"></div>
-          </div>
-          <div class="loc-dropdown" id="registerSearchResults"></div>
-          <div class="loc-confirmed" id="reg-confirmed">
-            <span class="loc-pin">📌</span>
-            <span class="loc-coords" id="reg-coords-text"></span>
-            <button class="loc-clear" onclick="clearRegLocPicker()">✕ Clear</button>
-          </div>
-          <input type="hidden" id="r-addr"/>
-          <input type="hidden" id="registerHospitalLat"/>
-          <input type="hidden" id="registerHospitalLon"/>
-          <input type="hidden" id="registerHospitalAddress"/>
-        </div>
+        <div class="fg"><label>Address *</label><input id="r-addr" placeholder="e.g. Koramangala, Bengaluru"/></div>
         <div class="fg"><label>Departments <span style="font-weight:400;color:var(--muted);">(comma separated)</span></label><input id="r-depts" placeholder="Cardiology, General, Orthopedics"/></div>
         <div class="g2">
           <div class="fg"><label>Contact Email *</label><input id="r-email" type="email" placeholder="hospital@email.com"/></div>
@@ -273,16 +228,16 @@
           <div class="fg"><label>Password *</label><input id="r-pass" type="password" placeholder="Min 6 characters"/></div>
           <div class="fg"><label>Confirm Password *</label><input id="r-pass2" type="password" placeholder="Repeat password"/></div>
         </div>
-        <button class="btn btn-primary btn-full" id="btn-reg" onclick="doRegister()" style="margin-top:4px;">Register Hospital -></button>
+        <button class="btn btn-primary btn-full" id="btn-reg" onclick="doRegister()" style="margin-top:4px;">Register Hospital →</button>
         <div style="text-align:center;margin-top:14px;">
           <span style="font-size:12px;color:var(--muted);">Already registered? </span>
-          <button onclick="switchAuthTab('t-login',document.querySelectorAll('.auth-tab')[0])" style="border:none;background:none;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:700;color:var(--primary);cursor:pointer;">Sign In -></button>
+          <button onclick="switchAuthTab('t-login',document.querySelectorAll('.auth-tab')[0])" style="border:none;background:none;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:700;color:var(--primary);cursor:pointer;">Sign In →</button>
         </div>
       </div>
     </div>
 
     <div style="text-align:center;margin-top:16px;">
-      <a href="/" class="back-btn" style="font-size:12px;"><- Back to Home</a>
+      <a href="/" class="back-btn" style="font-size:12px;">← Back to Home</a>
     </div>
   </div>
 </div>
@@ -298,7 +253,7 @@
   <div class="h-right">
     <div class="live-pill"><div class="live-dot"></div><span>Live</span></div>
     <span class="h-hospital" id="h-name-badge"></span>
-    <a href="/" class="back-btn"><- Home</a>
+    <a href="/" class="back-btn">← Home</a>
   </div>
 </header>
 
@@ -470,7 +425,7 @@
 <div class="overlay" id="modal-add-doctor">
   <div class="modal">
     <div class="modal-header">
-      <h3>âž• Add Doctor</h3>
+      <h3>➕ Add Doctor</h3>
       <button class="modal-close" onclick="closeModal('modal-add-doctor')">✕</button>
     </div>
     <div id="doc-err" class="alert alert-error" style="display:none;"><span id="doc-err-msg"></span></div>
@@ -594,16 +549,12 @@
     const name  = document.getElementById('r-name').value.trim();
     const addr  = document.getElementById('r-addr').value.trim();
     const depts = document.getElementById('r-depts').value.split(',').map(d=>d.trim()).filter(Boolean);
-    const lat = document.getElementById('registerHospitalLat').value;
-    const lon = document.getElementById('registerHospitalLon').value;
-    const fullAddress = document.getElementById('registerHospitalAddress').value;
     const email = document.getElementById('r-email').value.trim();
     const phone = document.getElementById('r-phone').value.trim();
     const pass  = document.getElementById('r-pass').value;
     const pass2 = document.getElementById('r-pass2').value;
     hideA('reg-err');
     if (!name || !addr || !email || !phone || !pass) { showA('reg-err','All fields are required'); return; }
-    if (!lat || !lon) { showA('reg-err','Please select a hospital from the location search list'); return; }
     if (pass !== pass2) { showA('reg-err','Passwords do not match'); return; }
     if (pass.length < 6) { showA('reg-err','Password must be at least 6 characters'); return; }
     const btn = document.getElementById('btn-reg');
@@ -612,8 +563,6 @@
       const payload = {
         hospitalName: name,
         address: addr,
-        fullAddress,
-        location: { latitude: parseFloat(lat), longitude: parseFloat(lon) },
         departments: depts,
         email: email,
         phone: phone,
@@ -1014,60 +963,6 @@
   }
 
   // ── HELPERS ───────────────────────────────────────
-  // ── LOCATION PICKER ──────────────────────────────
-  let registerHospitalSearchTimer;
-
-  function clearRegLocPicker() {
-    document.getElementById('registerHospitalSearch').value = '';
-    document.getElementById('registerHospitalSearch').classList.remove('loc-selected');
-    ['r-addr','registerHospitalLat','registerHospitalLon','registerHospitalAddress'].forEach(id => document.getElementById(id).value = '');
-    document.getElementById('registerSearchResults').innerHTML = '';
-    document.getElementById('registerSearchResults').classList.remove('open');
-    document.getElementById('reg-confirmed').classList.remove('show');
-  }
-
-  async function handleRegisterHospitalSearch(query) {
-    const dd      = document.getElementById('registerSearchResults');
-    const spinner = document.getElementById('reg-spinner');
-    clearTimeout(registerHospitalSearchTimer);
-    ['r-addr','registerHospitalLat','registerHospitalLon','registerHospitalAddress'].forEach(id => document.getElementById(id).value = '');
-    document.getElementById('reg-confirmed').classList.remove('show');
-    document.getElementById('registerHospitalSearch').classList.remove('loc-selected');
-    if (query.trim().length < 3) { dd.innerHTML=''; dd.classList.remove('open'); spinner.style.display='none'; return; }
-    dd.innerHTML = '<div class="loc-item-msg">🔍 Searching…</div>';
-    dd.classList.add('open');
-    spinner.style.display = 'block';
-    registerHospitalSearchTimer = setTimeout(async () => {
-      try {
-        const url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(query)}&format=json&limit=6&addressdetails=1&email=contact@mediqueue.com`;
-        const res  = await fetch(url);
-        if (!res.ok) throw new Error();
-        const data = await res.json();
-        spinner.style.display = 'none';
-        dd.innerHTML = '';
-        if (!data.length) { dd.innerHTML='<div class="loc-item-msg" style="color:var(--danger);">No results found. Try a different name.</div>'; return; }
-        data.forEach(place => {
-          const shortName = place.name || place.display_name.split(',')[0];
-          const el = document.createElement('div');
-          el.className = 'loc-item';
-          el.innerHTML = `<div class="loc-item-name">${shortName}</div><div class="loc-item-addr">${place.display_name}</div>`;
-          el.onclick = () => {
-            document.getElementById('registerHospitalSearch').value = shortName;
-            document.getElementById('registerHospitalSearch').classList.add('loc-selected');
-            document.getElementById('r-addr').value = place.display_name;
-            document.getElementById('registerHospitalLat').value = place.lat;
-            document.getElementById('registerHospitalLon').value = place.lon;
-            document.getElementById('registerHospitalAddress').value = place.display_name;
-            document.getElementById('reg-coords-text').textContent = `${shortName} · ${parseFloat(place.lat).toFixed(5)}, ${parseFloat(place.lon).toFixed(5)}`;
-            document.getElementById('reg-confirmed').classList.add('show');
-            dd.classList.remove('open'); dd.innerHTML = '';
-          };
-          dd.appendChild(el);
-        });
-      } catch(e) { spinner.style.display='none'; dd.innerHTML='<div class="loc-item-msg" style="color:var(--danger);">⚠ Network error. Try again.</div>'; }
-    }, 400);
-  }
-
   function showA(id, msg) { const el=document.getElementById(id); el.style.display='flex'; document.getElementById(`${id}-msg`).textContent=msg; }
   function hideA(id)      { document.getElementById(id).style.display='none'; }
   function toast(msg)     { const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),3000); }

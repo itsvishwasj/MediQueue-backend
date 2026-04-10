@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>MediQueue - Admin Dashboard</title>
+  <title>MediQueue — Admin Dashboard</title>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700;9..40,800;9..40,900&display=swap" rel="stylesheet"/>
   <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
@@ -154,64 +154,41 @@
     .confirm-msg{font-size:14px;color:var(--mid);text-align:center;margin-bottom:24px;line-height:1.6;}
     .confirm-btns{display:flex;gap:10px;}
     .confirm-btns .btn{flex:1;justify-content:center;}
-
-    /* ── LOCATION PICKER ── */
-    .loc-picker{position:relative;margin-bottom:14px;}
-    .loc-picker>label{display:block;font-size:12px;font-weight:700;color:var(--mid);margin-bottom:6px;}
-    .loc-search-wrap{position:relative;display:flex;align-items:center;}
-    .loc-search-wrap .loc-icon{position:absolute;left:12px;font-size:15px;pointer-events:none;line-height:1;}
-    .loc-search-wrap input{width:100%;padding:10px 13px 10px 36px;border:1.5px solid rgba(37,99,235,0.12);border-radius:10px;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--ink);background:var(--surface);outline:none;transition:border-color 0.2s,box-shadow 0.2s;}
-    .loc-search-wrap input:focus{border-color:var(--primary);box-shadow:0 0 0 3px var(--primary-lt);}
-    .loc-search-wrap input.loc-selected{border-color:var(--success);box-shadow:0 0 0 3px rgba(0,201,122,0.1);}
-    .loc-spinner{position:absolute;right:12px;width:14px;height:14px;border:2px solid var(--border);border-top-color:var(--primary);border-radius:50%;animation:loc-spin 0.7s linear infinite;display:none;}
-    @keyframes loc-spin{to{transform:rotate(360deg);}}
-    .loc-dropdown{position:absolute;top:calc(100% + 6px);left:0;right:0;background:var(--surface);border:1.5px solid var(--border);border-radius:12px;box-shadow:0 12px 32px rgba(37,99,235,0.12);z-index:9999;display:none;max-height:240px;overflow-y:auto;}
-    .loc-dropdown.open{display:block;}
-    .loc-item{padding:11px 14px;cursor:pointer;border-bottom:1px solid var(--border);transition:background 0.12s;}
-    .loc-item:last-child{border-bottom:none;}
-    .loc-item:hover{background:var(--primary-lt);}
-    .loc-item-name{font-size:13px;font-weight:700;color:var(--ink);margin-bottom:2px;}
-    .loc-item-addr{font-size:11px;color:var(--muted);line-height:1.4;}
-    .loc-item-msg{padding:12px 14px;font-size:13px;color:var(--muted);text-align:center;}
-    .loc-confirmed{display:none;align-items:center;gap:8px;background:var(--success-lt);border:1px solid rgba(0,201,122,0.25);border-radius:8px;padding:8px 12px;margin-top:8px;}
-    .loc-confirmed.show{display:flex;}
-    .loc-confirmed .loc-pin{font-size:14px;}
-    .loc-confirmed .loc-coords{font-size:11px;font-weight:700;color:#065F46;flex:1;}
-    .loc-confirmed .loc-clear{font-size:11px;color:var(--muted);background:none;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;padding:2px 6px;border-radius:6px;transition:background 0.15s,color 0.15s;}
-    .loc-confirmed .loc-clear:hover{background:rgba(240,59,59,0.08);color:var(--danger);}
   </style>
 </head>
 <body>
 
 <header>
   <div class="h-logo">
-    <div class="h-icon">MQ</div>
+    <div class="h-icon">🛡️</div>
     <span class="h-title">MediQueue Admin</span>
   </div>
   <div style="display:flex;align-items:center;gap:12px;">
-    <span class="admin-tag">Admin Access</span>
-    <a href="/" class="back-btn"><- Home</a>
+    <span class="admin-tag">⚡ Admin Access</span>
+    <a href="/" class="back-btn">← Home</a>
   </div>
 </header>
 
 <div class="app">
 
-  <!-- SIDEBAR -->
+  <!-- ── SIDEBAR ── -->
   <div class="sidebar">
     <div class="s-label">Platform</div>
-    <button class="s-btn active" onclick="showPage('p-overview',this)"><span class="ico">O</span>Overview</button>
+    <button class="s-btn active" onclick="showPage('p-overview',this)"><span class="ico">📊</span>Overview</button>
 
     <div class="s-label">Manage</div>
-    <button class="s-btn" onclick="showPage('p-hospitals',this)"><span class="ico">H</span>Hospitals</button>
-    <button class="s-btn" onclick="showPage('p-doctors',this)"><span class="ico">D</span>Doctors</button>
+    <button class="s-btn" onclick="showPage('p-hospitals',this)"><span class="ico">🏥</span>Hospitals</button>
+    <button class="s-btn" onclick="showPage('p-doctors',this)"><span class="ico">👨‍⚕️</span>Doctors</button>
 
     <div class="s-label">Queue</div>
-    <button class="s-btn" onclick="showPage('p-queue',this)"><span class="ico">Q</span>Live Queue</button>
+    <button class="s-btn" onclick="showPage('p-queue',this)"><span class="ico">🔢</span>Live Queue</button>
   </div>
 
   <div class="main">
 
-  <!-- PAGE: OVERVIEW -->
+    <!-- ══════════════════════════════════════════════
+         PAGE: OVERVIEW
+    ═══════════════════════════════════════════════ -->
     <div id="p-overview" class="page active">
       <div class="page-header">
         <div class="page-header-text">
@@ -219,29 +196,29 @@
           <div class="page-sub">Platform-wide statistics at a glance</div>
         </div>
         <div style="display:flex;gap:10px;">
-          <button class="btn btn-primary btn-sm" onclick="openModal('modal-add-hospital')">Add Hospital</button>
-          <button class="btn btn-ink btn-sm" onclick="openModal('modal-add-doctor')">Add Doctor</button>
+          <button class="btn btn-primary btn-sm" onclick="openModal('modal-add-hospital')">🏥 Add Hospital</button>
+          <button class="btn btn-ink btn-sm" onclick="openModal('modal-add-doctor')">👨‍⚕️ Add Doctor</button>
         </div>
       </div>
 
       <div class="stats">
         <div class="stat-card">
-          <div class="ico-wrap" style="background:var(--primary-lt);">H</div>
-          <div class="v" id="ov-hospitals" style="color:var(--primary);">-</div>
+          <div class="ico-wrap" style="background:var(--primary-lt);">🏥</div>
+          <div class="v" id="ov-hospitals" style="color:var(--primary);">—</div>
           <div class="l">Total Hospitals</div>
         </div>
         <div class="stat-card">
-          <div class="ico-wrap" style="background:var(--success-lt);">D</div>
-          <div class="v" id="ov-doctors" style="color:var(--success);">-</div>
+          <div class="ico-wrap" style="background:var(--success-lt);">👨‍⚕️</div>
+          <div class="v" id="ov-doctors" style="color:var(--success);">—</div>
           <div class="l">Total Doctors</div>
         </div>
         <div class="stat-card">
-          <div class="ico-wrap" style="background:var(--warning-lt);">W</div>
-          <div class="v" id="ov-waiting" style="color:var(--warning);">-</div>
+          <div class="ico-wrap" style="background:var(--warning-lt);">🪑</div>
+          <div class="v" id="ov-waiting" style="color:var(--warning);">—</div>
           <div class="l">Waiting Now</div>
         </div>
         <div class="stat-card">
-          <div class="ico-wrap" style="background:var(--danger-lt);">!</div>
+          <div class="ico-wrap" style="background:var(--danger-lt);">🚨</div>
           <div class="v" id="ov-emergency" style="color:var(--danger);">0</div>
           <div class="l">Emergency</div>
         </div>
@@ -250,10 +227,10 @@
       <!-- Quick hospital list -->
       <div class="card">
         <div class="card-header">
-          <div class="card-title" style="margin:0;">Registered Hospitals</div>
-          <button class="btn btn-primary btn-sm" onclick="showPage('p-hospitals', document.querySelectorAll('.s-btn')[1])">View All -></button>
+          <div class="card-title" style="margin:0;">🏥 Registered Hospitals</div>
+          <button class="btn btn-primary btn-sm" onclick="showPage('p-hospitals', document.querySelectorAll('.s-btn')[1])">View All →</button>
         </div>
-        <div id="ov-hosp-list"><div class="empty"><div class="e-ico">H</div><p>Loading...</p></div></div>
+        <div id="ov-hosp-list"><div class="empty"><div class="e-ico">🏥</div><p>Loading...</p></div></div>
       </div>
     </div>
 
@@ -391,36 +368,17 @@
 <div class="overlay" id="modal-add-hospital">
   <div class="modal">
     <div class="modal-header">
-      <h3>Register Hospital</h3>
-      <button class="modal-close" onclick="closeModal('modal-add-hospital')">x</button>
+      <h3>🏢 Register Hospital</h3>
+      <button class="modal-close" onclick="closeModal('modal-add-hospital')">✕</button>
     </div>
     <div id="h-err" class="alert alert-error" style="display:none;"><span id="h-err-msg"></span></div>
     <div id="h-ok"  class="alert alert-success" style="display:none;"><span id="h-ok-msg"></span></div>
     <div class="fg"><label>Hospital Name *</label><input id="hosp-name" placeholder="e.g. Apollo Clinic"/></div>
-    <div class="loc-picker">
-      <label>📍 Find Your Location *</label>
-      <div class="loc-search-wrap">
-        <span class="loc-icon">🏥</span>
-        <input type="text" id="hospitalSearch" autocomplete="off"
-               placeholder="Enter full name (eg., Apollo Clinic)"
-               oninput="handleHospitalSearch(this.value)"
-               onblur="setTimeout(()=>document.getElementById('searchResults').classList.remove('open'),200)"/>
-        <div class="loc-spinner" id="hosp-spinner"></div>
-      </div>
-      <div class="loc-dropdown" id="searchResults"></div>
-      <div class="loc-confirmed" id="hosp-confirmed">
-        <span class="loc-pin">📌</span>
-        <span class="loc-coords" id="hosp-coords-text"></span>
-        <button class="loc-clear" onclick="clearLocPicker()">✕ Clear</button>
-      </div>
-      <input type="hidden" id="hosp-addr"/>
-      <input type="hidden" id="hospitalLat"/>
-      <input type="hidden" id="hospitalLon"/>
-      <input type="hidden" id="hospitalAddress"/>
-    </div>
+    <div class="fg"><label>Address / Location *</label><input id="hosp-addr" placeholder="e.g. Koramangala, Bengaluru"/></div>
     <div class="fg"><label>Departments <span style="font-weight:400;color:var(--muted);">(comma separated)</span></label><input id="hosp-depts" placeholder="Cardiology, General, Pediatrics"/></div>
-    <div style="display:flex;justify-content:flex-end;margin-top:4px;">
-      <button class="btn btn-primary" id="btn-hosp" onclick="addHospital()">Register Hospital -></button>
+    <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:4px;">
+      <button class="btn btn-ghost" onclick="closeModal('modal-add-hospital')">Cancel</button>
+      <button class="btn btn-primary" id="btn-hosp" onclick="addHospital()">Create Hospital →</button>
     </div>
   </div>
 </div>
@@ -431,7 +389,7 @@
 <div class="overlay" id="modal-add-doctor">
   <div class="modal">
     <div class="modal-header">
-      <h3>Register Doctor</h3>
+      <h3>👨‍⚕️ Register Doctor</h3>
       <button class="modal-close" onclick="closeModal('modal-add-doctor')">✕</button>
     </div>
     <div id="d-err" class="alert alert-error" style="display:none;"><span id="d-err-msg"></span></div>
@@ -444,7 +402,7 @@
     </div>
     <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:4px;">
       <button class="btn btn-ghost" onclick="closeModal('modal-add-doctor')">Cancel</button>
-      <button class="btn btn-ink" id="btn-doc" onclick="addDoctor()">Register Doctor -></button>
+      <button class="btn btn-ink" id="btn-doc" onclick="addDoctor()">Register Doctor →</button>
     </div>
   </div>
 </div>
@@ -669,26 +627,20 @@
     const name  = document.getElementById('hosp-name').value.trim();
     const addr  = document.getElementById('hosp-addr').value.trim();
     const depts = document.getElementById('hosp-depts').value.split(',').map(d=>d.trim()).filter(Boolean);
-    const lat = document.getElementById('hospitalLat').value;
-    const lon = document.getElementById('hospitalLon').value;
-    const fullAddress = document.getElementById('hospitalAddress').value;
     hideA('h-err'); hideA('h-ok');
-    if (!name || !addr) { showA('h-err','Name and location are required'); return; }
-    if (!lat || !lon) { showA('h-err','Please select a hospital from the location search list'); return; }
-    btn.textContent = 'Registering...'; btn.disabled = true;
+    if (!name || !addr) { showA('h-err','Name and address are required'); return; }
+    btn.textContent = 'Creating...'; btn.disabled = true;
     try {
-      const res  = await fetch(`${API}/hospitals`, {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({name, address:addr, departments:depts, fullAddress, location:{latitude:parseFloat(lat), longitude:parseFloat(lon)}})});
+      const res  = await fetch(`${API}/hospitals`, {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({name, address:addr, departments:depts})});
       const data = await res.json();
       if (!res.ok) { showA('h-err', data.message); return; }
-      showA('h-ok', '✅ Hospital registered!');
-      clearLocPicker();
-      document.getElementById('hosp-name').value='';
-      document.getElementById('hosp-depts').value='';
+      showA('h-ok', '✅ Hospital created!');
+      ['hosp-name','hosp-addr','hosp-depts'].forEach(id => document.getElementById(id).value = '');
       toast('Hospital registered!');
       loadOverview();
       setTimeout(() => closeModal('modal-add-hospital'), 1200);
     } catch(e) { showA('h-err', 'Server error. Is backend running?'); }
-    finally { btn.textContent = 'Register Hospital →'; btn.disabled = false; }
+    finally { btn.textContent = 'Create Hospital →'; btn.disabled = false; }
   }
   
   function updateDocDeptOptions() {
@@ -934,60 +886,6 @@
     t.className = 'show' + (danger ? ' toast-danger' : '');
     setTimeout(() => t.className = '', 3000);
   }
-  // ── LOCATION PICKER ──────────────────────────────
-  let hospitalSearchTimer;
-
-  function clearLocPicker() {
-    document.getElementById('hospitalSearch').value = '';
-    document.getElementById('hospitalSearch').classList.remove('loc-selected');
-    ['hosp-addr','hospitalLat','hospitalLon','hospitalAddress'].forEach(id => document.getElementById(id).value = '');
-    document.getElementById('searchResults').innerHTML = '';
-    document.getElementById('searchResults').classList.remove('open');
-    document.getElementById('hosp-confirmed').classList.remove('show');
-  }
-
-  async function handleHospitalSearch(query) {
-    const dd      = document.getElementById('searchResults');
-    const spinner = document.getElementById('hosp-spinner');
-    clearTimeout(hospitalSearchTimer);
-    ['hosp-addr','hospitalLat','hospitalLon','hospitalAddress'].forEach(id => document.getElementById(id).value = '');
-    document.getElementById('hosp-confirmed').classList.remove('show');
-    document.getElementById('hospitalSearch').classList.remove('loc-selected');
-    if (query.trim().length < 3) { dd.innerHTML=''; dd.classList.remove('open'); spinner.style.display='none'; return; }
-    dd.innerHTML = '<div class="loc-item-msg">🔍 Searching…</div>';
-    dd.classList.add('open');
-    spinner.style.display = 'block';
-    hospitalSearchTimer = setTimeout(async () => {
-      try {
-        const url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(query)}&format=json&limit=6&addressdetails=1&email=contact@mediqueue.com`;
-        const res  = await fetch(url);
-        if (!res.ok) throw new Error();
-        const data = await res.json();
-        spinner.style.display = 'none';
-        dd.innerHTML = '';
-        if (!data.length) { dd.innerHTML='<div class="loc-item-msg" style="color:var(--danger);">No results found. Try a different name.</div>'; return; }
-        data.forEach(place => {
-          const shortName = place.name || place.display_name.split(',')[0];
-          const el = document.createElement('div');
-          el.className = 'loc-item';
-          el.innerHTML = `<div class="loc-item-name">${shortName}</div><div class="loc-item-addr">${place.display_name}</div>`;
-          el.onclick = () => {
-            document.getElementById('hospitalSearch').value = shortName;
-            document.getElementById('hospitalSearch').classList.add('loc-selected');
-            document.getElementById('hosp-addr').value = place.display_name;
-            document.getElementById('hospitalLat').value = place.lat;
-            document.getElementById('hospitalLon').value = place.lon;
-            document.getElementById('hospitalAddress').value = place.display_name;
-            document.getElementById('hosp-coords-text').textContent = `${shortName} · ${parseFloat(place.lat).toFixed(5)}, ${parseFloat(place.lon).toFixed(5)}`;
-            document.getElementById('hosp-confirmed').classList.add('show');
-            dd.classList.remove('open'); dd.innerHTML = '';
-          };
-          dd.appendChild(el);
-        });
-      } catch(e) { spinner.style.display='none'; dd.innerHTML='<div class="loc-item-msg" style="color:var(--danger);">⚠ Network error. Try again.</div>'; }
-    }, 400);
-  }
-
   function escQ(str) { return String(str||'').replace(/'/g,"\\'").replace(/"/g,"&quot;"); }
 </script>
 

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>MediQueue â€” Hospital Portal</title>
+  <title>MediQueue — Hospital Portal</title>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,700;9..40,800;9..40,900&display=swap" rel="stylesheet"/>
   <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
   <style>
@@ -182,7 +182,7 @@
 <body>
 
 <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-     AUTH SCREEN â€” shown before login
+     AUTH SCREEN — shown before login
 â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
 <div id="auth-screen">
   <div class="auth-box">
@@ -204,10 +204,10 @@
         <div id="login-err" class="alert alert-error" style="display:none;"><span id="login-err-msg"></span></div>
         <div class="fg"><label>Email Address *</label><input id="l-email" type="email" placeholder="hospital@email.com"/></div>
         <div class="fg"><label>Password *</label><input id="l-pass" type="password" placeholder="Your password"/></div>
-        <button class="btn btn-primary btn-full" id="btn-login" onclick="doLogin()" style="margin-top:4px;">Sign In â†’</button>
+        <button class="btn btn-primary btn-full" id="btn-login" onclick="doLogin()" style="margin-top:4px;">Sign In →</button>
         <div style="text-align:center;margin-top:14px;">
           <span style="font-size:12px;color:var(--muted);">No account yet? </span>
-          <button onclick="switchAuthTab('t-register',document.querySelectorAll('.auth-tab')[1])" style="border:none;background:none;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:700;color:var(--primary);cursor:pointer;">Register â†’</button>
+          <button onclick="switchAuthTab('t-register',document.querySelectorAll('.auth-tab')[1])" style="border:none;background:none;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:700;color:var(--primary);cursor:pointer;">Register →</button>
         </div>
       </div>
     </div>
@@ -227,10 +227,10 @@
           <div class="fg"><label>Password *</label><input id="r-pass" type="password" placeholder="Min 6 characters"/></div>
           <div class="fg"><label>Confirm Password *</label><input id="r-pass2" type="password" placeholder="Repeat password"/></div>
         </div>
-        <button class="btn btn-primary btn-full" id="btn-reg" onclick="doRegister()" style="margin-top:4px;">Register Hospital â†’</button>
+        <button class="btn btn-primary btn-full" id="btn-reg" onclick="doRegister()" style="margin-top:4px;">Register Hospital →</button>
         <div style="text-align:center;margin-top:14px;">
           <span style="font-size:12px;color:var(--muted);">Already registered? </span>
-          <button onclick="switchAuthTab('t-login',document.querySelectorAll('.auth-tab')[0])" style="border:none;background:none;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:700;color:var(--primary);cursor:pointer;">Sign In â†’</button>
+          <button onclick="switchAuthTab('t-login',document.querySelectorAll('.auth-tab')[0])" style="border:none;background:none;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:700;color:var(--primary);cursor:pointer;">Sign In →</button>
         </div>
       </div>
     </div>
@@ -261,14 +261,14 @@
   <!-- â”€â”€ SIDEBAR â”€â”€ -->
   <div class="sidebar" id="sidebar" style="display:none;">
     <div class="s-label">Manage</div>
-    <button class="s-btn active" onclick="showPage('p-queue',this)"><span class="ico">ðŸ”¢</span>Live Queue</button>
+    <button class="s-btn active" onclick="showPage('p-queue',this)"><span class="ico">🔢</span>Live Queue</button>
     <button class="s-btn" onclick="showPage('p-doctors',this)"><span class="ico">ðŸ‘¨â€âš•ï¸</span>Doctors</button>
 
     <div class="s-label">Hospital</div>
     <button class="s-btn" onclick="showPage('p-reception',this)"><span class="ico">ðŸ¢</span>Reception QR</button>
     <button class="s-btn" onclick="showPage('p-settings',this)"><span class="ico">âš™ï¸</span>Settings</button>
 
-    <button class="s-btn s-logout" onclick="doLogout()" style="margin-top:auto;"><span class="ico">ðŸšª</span>Sign Out</button>
+    <button class="s-btn s-logout" onclick="doLogout()" style="margin-top:auto;"><span class="ico">🚪</span>Sign Out</button>
   </div>
 
   <div class="main">
@@ -284,7 +284,7 @@
           <div style="flex:1;">
             <div class="card">
               <div class="card-header">
-                <div class="card-title" style="margin:0;">ðŸª‘ Waiting Queue</div>
+                <div class="card-title" style="margin:0;">🪑 Waiting Queue</div>
                 <span id="q-count" style="font-size:12px;color:var(--muted);font-weight:600;"></span>
               </div>
               <div class="fg" style="margin-bottom:0;">
@@ -296,7 +296,7 @@
               </div>
             </div>
 
-            <div id="q-empty" class="empty"><div class="e-ico">ðŸª‘</div><p>Select a doctor to view queue</p></div>
+            <div id="q-empty" class="empty"><div class="e-ico">🪑</div><p>Select a doctor to view queue</p></div>
             <div class="queue-wrap" id="q-table" style="display:none;">
               <table>
                 <thead><tr><th>#</th><th>Token</th><th>Patient</th><th>Type</th><th>Wait</th></tr></thead>
@@ -312,11 +312,11 @@
               <div class="ns-token" id="ns-token">--</div>
               <div class="ns-name"  id="ns-name">No patient yet</div>
             </div>
-            <button class="next-btn" id="next-btn" onclick="nextPatient()">Call Next Patient â†’</button>
+            <button class="next-btn" id="next-btn" onclick="nextPatient()">Call Next Patient →</button>
 
             <!-- Cabin QR Card -->
             <div class="card" style="text-align:center;">
-              <div class="card-title" style="justify-content:center;">ðŸ“· Cabin QR Code</div>
+              <div class="card-title" style="justify-content:center;">📷 Cabin QR Code</div>
               <p style="font-size:12px;color:var(--muted);margin-bottom:14px;">Patient scans at cabin door to check in</p>
               <div class="qr-cabin-wrap" id="qr-inline"></div>
               <div style="display:flex;gap:8px;">
@@ -364,7 +364,7 @@
         <div class="reception-hero">
           <h3>ðŸ¢ Reception QR Code</h3>
           <p>Place this QR at your front desk. Patients scan it to see all available doctors and book their slot.</p>
-          <button class="btn btn-primary" onclick="loadReceptionQR()">Generate QR â†’</button>
+          <button class="btn btn-primary" onclick="loadReceptionQR()">Generate QR →</button>
         </div>
 
         <div id="reception-qr-card" style="display:none;">
@@ -376,7 +376,7 @@
             <p style="font-size:11px;color:var(--muted);margin-bottom:20px;font-family:monospace;" id="reception-qr-payload"></p>
             <div style="display:flex;gap:10px;justify-content:center;">
               <button class="btn btn-primary" onclick="printReceptionQR()">ðŸ–¨ï¸ Print for Front Desk</button>
-              <button class="btn btn-ghost" onclick="loadReceptionQR()">ðŸ”„ Regenerate</button>
+              <button class="btn btn-ghost" onclick="loadReceptionQR()">🔄 Regenerate</button>
             </div>
           </div>
         </div>
@@ -407,7 +407,7 @@
           </div>
 
           <div style="display:flex;gap:10px;margin-top:4px;">
-            <button class="btn btn-primary" id="btn-settings" onclick="saveSettings()">Save Changes â†’</button>
+            <button class="btn btn-primary" id="btn-settings" onclick="saveSettings()">Save Changes →</button>
             <button class="btn btn-ghost" onclick="loadSettingsForm()">Reset</button>
           </div>
         </div>
@@ -424,8 +424,8 @@
 <div class="overlay" id="modal-add-doctor">
   <div class="modal">
     <div class="modal-header">
-      <h3>âž• Add Doctor</h3>
-      <button class="modal-close" onclick="closeModal('modal-add-doctor')">âœ•</button>
+      <h3>➕ Add Doctor</h3>
+      <button class="modal-close" onclick="closeModal('modal-add-doctor')">✕</button>
     </div>
     <div id="doc-err" class="alert alert-error" style="display:none;"><span id="doc-err-msg"></span></div>
     <div id="doc-ok"  class="alert alert-success" style="display:none;"><span id="doc-ok-msg"></span></div>
@@ -434,7 +434,7 @@
     <div class="fg"><label>Avg. Consultation Time (minutes)</label><input id="d-time" type="number" value="10" min="1" max="60"/></div>
     <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:4px;">
       <button class="btn btn-ghost" onclick="closeModal('modal-add-doctor')">Cancel</button>
-      <button class="btn btn-primary" id="btn-add-doc" onclick="addDoctor()">Add Doctor â†’</button>
+      <button class="btn btn-primary" id="btn-add-doc" onclick="addDoctor()">Add Doctor →</button>
     </div>
   </div>
 </div>
@@ -446,7 +446,7 @@
   <div class="modal">
     <div class="modal-header">
       <h3>âœï¸ Edit Doctor</h3>
-      <button class="modal-close" onclick="closeModal('modal-edit-doctor')">âœ•</button>
+      <button class="modal-close" onclick="closeModal('modal-edit-doctor')">✕</button>
     </div>
     <div id="ed-err" class="alert alert-error" style="display:none;"><span id="ed-err-msg"></span></div>
     <input type="hidden" id="ed-id"/>
@@ -455,7 +455,7 @@
     <div class="fg"><label>Avg. Consultation Time (minutes)</label><input id="ed-time" type="number" min="1"/></div>
     <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:4px;">
       <button class="btn btn-ghost" onclick="closeModal('modal-edit-doctor')">Cancel</button>
-      <button class="btn btn-primary" id="btn-ed" onclick="saveDoctor()">Save Changes â†’</button>
+      <button class="btn btn-primary" id="btn-ed" onclick="saveDoctor()">Save Changes →</button>
     </div>
   </div>
 </div>
@@ -466,13 +466,13 @@
 <div class="overlay" id="modal-cabin-qr">
   <div class="modal" style="text-align:center;">
     <div class="modal-header" style="justify-content:center;position:relative;">
-      <h3>ðŸ“· Cabin QR Code</h3>
-      <button class="modal-close" style="position:absolute;right:0;" onclick="closeModal('modal-cabin-qr')">âœ•</button>
+      <h3>📷 Cabin QR Code</h3>
+      <button class="modal-close" style="position:absolute;right:0;" onclick="closeModal('modal-cabin-qr')">✕</button>
     </div>
     <div class="modal-qr-name" id="m-doc-name"></div>
     <div class="modal-qr-sub" id="m-dept"></div>
     <div id="qr-render"></div>
-    <p class="modal-hint">ðŸ“· Print and place outside the cabin door</p>
+    <p class="modal-hint">📷 Print and place outside the cabin door</p>
     <div class="m-btns">
       <button class="btn btn-primary btn-sm" onclick="printCabinQR()">ðŸ–¨ï¸ Print</button>
       <button class="btn btn-ghost btn-sm" onclick="closeModal('modal-cabin-qr')">Close</button>
@@ -492,7 +492,7 @@
     <p class="confirm-msg" id="confirm-msg">This cannot be undone.</p>
     <div class="confirm-btns">
       <button class="btn btn-ghost" onclick="closeModal('modal-confirm')">Cancel</button>
-      <button class="btn btn-danger" id="confirm-ok-btn" onclick="confirmDelete()">Delete â†’</button>
+      <button class="btn btn-danger" id="confirm-ok-btn" onclick="confirmDelete()">Delete →</button>
     </div>
   </div>
 </div>
@@ -570,7 +570,7 @@
       persistSession();
       openDashboard();
     } catch(e) { showA('login-err','Server error. Is backend running?'); }
-    finally { btn.textContent = 'Sign In â†’'; btn.disabled = false; }
+    finally { btn.textContent = 'Sign In →'; btn.disabled = false; }
   }
 
   // â”€â”€ REGISTER â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
@@ -600,7 +600,7 @@
       const res  = await fetch(`${API}/auth/register/hospital`, {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(payload)});
       const data = await res.json();
       if (!res.ok) { showA('reg-err', data.message || 'Registration failed'); return; }
-      // Auto-login after registration â€” call login route
+      // Auto-login after registration — call login route
       const lRes  = await fetch(`${API}/auth/login/hospital`, {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({email, password:pass})});
       const lData = await lRes.json();
       if (lRes.ok) {
@@ -610,13 +610,13 @@
         persistSession();
         openDashboard();
       } else {
-        // Registration succeeded but auto-login failed â€” ask user to sign in
+        // Registration succeeded but auto-login failed — ask user to sign in
         showA('reg-err','Registered! Please sign in now.');
         switchAuthTab('t-login', document.querySelectorAll('.auth-tab')[0]);
         document.getElementById('l-email').value = email;
       }
     } catch(e) { showA('reg-err','Server error. Is backend running?'); }
-    finally { btn.textContent = 'Register Hospital â†’'; btn.disabled = false; }
+    finally { btn.textContent = 'Register Hospital →'; btn.disabled = false; }
   }
 
   // â”€â”€ LOGOUT â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
@@ -730,7 +730,7 @@
   function populateQueueSel(docs) {
     const sel = document.getElementById('q-doc-sel');
     sel.innerHTML = '<option value="">-- Select doctor --</option>';
-    docs.forEach(d => sel.innerHTML += `<option value="${d._id}">${d.name} â€” ${d.department}</option>`);
+    docs.forEach(d => sel.innerHTML += `<option value="${d._id}">${d.name} — ${d.department}</option>`);
   }
 
   // â”€â”€ ADD DOCTOR â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
@@ -746,7 +746,7 @@
       const res  = await fetch(`${API}/doctors`, {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({name, hospital:hospitalId, department:dept, avgConsultationTime:parseInt(time)||10})});
       const data = await res.json();
       if (!res.ok) { showA('doc-err', data.message); return; }
-      showA('doc-ok', `âœ… Dr. ${name} added!`);
+      showA('doc-ok', `✅ Dr. ${name} added!`);
       document.getElementById('d-name').value = '';
       document.getElementById('d-dept').value = '';
       document.getElementById('d-time').value = '10';
@@ -754,7 +754,7 @@
       loadDoctors();
       setTimeout(() => closeModal('modal-add-doctor'), 1200);
     } catch(e) { showA('doc-err','Failed to add doctor'); }
-    finally { btn.textContent = 'Add Doctor â†’'; btn.disabled = false; }
+    finally { btn.textContent = 'Add Doctor →'; btn.disabled = false; }
   }
 
   // â”€â”€ EDIT DOCTOR â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
@@ -794,7 +794,7 @@
       closeModal('modal-edit-doctor');
       loadDoctors();
     } catch(e) { showA('ed-err','Server error.'); }
-    finally { btn.textContent = 'Save Changes â†’'; btn.disabled = false; }
+    finally { btn.textContent = 'Save Changes →'; btn.disabled = false; }
   }
 
   // â”€â”€ DELETE DOCTOR â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
@@ -815,7 +815,7 @@
       closeModal('modal-confirm');
       loadDoctors();
     } catch(e) { toast('Server error'); }
-    finally { btn.textContent = 'Delete â†’'; btn.disabled = false; }
+    finally { btn.textContent = 'Delete →'; btn.disabled = false; }
   }
 
   // â”€â”€ QUEUE â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
@@ -840,7 +840,7 @@
     btn.disabled = true; btn.textContent = 'Loading...';
     try { await fetch(`${API}/queue/${currentDoctorId}/next`, {method:'POST', headers:{'Content-Type':'application/json'}}); }
     catch(e) { console.error(e); }
-    btn.disabled = false; btn.textContent = 'Call Next Patient â†’';
+    btn.disabled = false; btn.textContent = 'Call Next Patient →';
   }
 
   function setToken(num, name) {
@@ -857,7 +857,7 @@
     const empty = document.getElementById('q-empty');
     const wrap  = document.getElementById('q-table');
     tbody.innerHTML = '';
-    if (!queue.length) { wrap.style.display='none'; empty.style.display='block'; empty.innerHTML='<div class="e-ico">ðŸª‘</div><p>No patients waiting</p>'; return; }
+    if (!queue.length) { wrap.style.display='none'; empty.style.display='block'; empty.innerHTML='<div class="e-ico">🪑</div><p>No patients waiting</p>'; return; }
     wrap.style.display='block'; empty.style.display='none';
     queue.forEach(item => {
       tbody.innerHTML += `<tr>
@@ -1027,10 +1027,10 @@
       hospitalDepartments = depts;
       document.getElementById('h-name-badge').textContent = hospitalName;
       populateDeptDropdowns();
-      showA('set-ok','âœ… Settings saved!');
+      showA('set-ok','✅ Settings saved!');
       toast('Hospital profile updated');
     } catch(e) { showA('set-err','Server error.'); }
-    finally { btn.textContent = 'Save Changes â†’'; btn.disabled = false; }
+    finally { btn.textContent = 'Save Changes →'; btn.disabled = false; }
   }
 
   // â”€â”€ HELPERS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€

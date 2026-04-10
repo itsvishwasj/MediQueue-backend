@@ -6,6 +6,7 @@
   <title>MediQueue â€” Hospital Portal</title>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,700;9..40,800;9..40,900&display=swap" rel="stylesheet"/>
   <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
   <style>
     :root{
       --primary:#2563EB;--primary-lt:rgba(37,99,235,0.08);
@@ -396,7 +397,7 @@
           <div class="settings-section">
             <div class="settings-section-title">Basic Information</div>
             <div class="fg"><label>Hospital Name *</label><input id="set-name" placeholder="Hospital Name"/></div>
-            <div class="fg"><label>Google Maps Link *</label><input id="set-addr" placeholder="Paste the hospital Google Maps link"/></div>
+            <div class="fg"><label>Address *</label><input id="set-addr" placeholder="Address"/></div>
           </div>
 
           <div class="settings-section">
@@ -500,17 +501,11 @@
 <div id="toast"></div>
 
 <script>
-  const API = 'https://mediqueue-backend-el5a.onrender.com/api';
+  const API = 'http://localhost:5000/api';
   let hospitalId = null, hospitalName = '', hospitalToken = null;
   let socket = null, currentDoctorId = null, allDoctors = [];
   let hospitalDepartments = [];
   let pendingDeleteId = null, pendingDeleteName = '';
-  const DEMO_HOSPITAL_ID = '69d20400dcc05573cc367d24';
-  const STORAGE_KEYS = {
-    token: 'mq_hospital_token',
-    hospitalId: 'mq_hospital_id',
-    hospitalName: 'mq_hospital_name'
-  };
 
   // â”€â”€ INIT â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   window.onload = () => {
@@ -518,30 +513,7 @@
     document.querySelectorAll('.overlay').forEach(o => {
       o.addEventListener('click', e => { if (e.target === o) o.classList.remove('show'); });
     });
-    restoreSession();
-    if (hospitalId && hospitalName) {
-      openDashboard();
-    }
   };
-
-  function persistSession() {
-    if (!hospitalId || !hospitalName || !hospitalToken) return;
-    localStorage.setItem(STORAGE_KEYS.token, hospitalToken);
-    localStorage.setItem(STORAGE_KEYS.hospitalId, hospitalId);
-    localStorage.setItem(STORAGE_KEYS.hospitalName, hospitalName);
-  }
-
-  function restoreSession() {
-    hospitalToken = localStorage.getItem(STORAGE_KEYS.token);
-    hospitalId = localStorage.getItem(STORAGE_KEYS.hospitalId);
-    hospitalName = localStorage.getItem(STORAGE_KEYS.hospitalName) || '';
-  }
-
-  function clearSession() {
-    localStorage.removeItem(STORAGE_KEYS.token);
-    localStorage.removeItem(STORAGE_KEYS.hospitalId);
-    localStorage.removeItem(STORAGE_KEYS.hospitalName);
-  }
 
   // â”€â”€ AUTH TAB SWITCH â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   function switchAuthTab(id, btn) {
@@ -567,7 +539,6 @@
       hospitalToken = data.token;
       hospitalId    = data.user.hospitalId;
       hospitalName  = data.user.name;
-      persistSession();
       openDashboard();
     } catch(e) { showA('login-err','Server error. Is backend running?'); }
     finally { btn.textContent = 'Sign In â†’'; btn.disabled = false; }
@@ -576,14 +547,14 @@
   // â”€â”€ REGISTER â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   async function doRegister() {
     const name  = document.getElementById('r-name').value.trim();
-    const googleMapsLink = document.getElementById('r-addr').value.trim();
+    const addr  = document.getElementById('r-addr').value.trim();
     const depts = document.getElementById('r-depts').value.split(',').map(d=>d.trim()).filter(Boolean);
     const email = document.getElementById('r-email').value.trim();
     const phone = document.getElementById('r-phone').value.trim();
     const pass  = document.getElementById('r-pass').value;
     const pass2 = document.getElementById('r-pass2').value;
     hideA('reg-err');
-    if (!name || !googleMapsLink || !email || !phone || !pass) { showA('reg-err','All fields are required'); return; }
+    if (!name || !addr || !email || !phone || !pass) { showA('reg-err','All fields are required'); return; }
     if (pass !== pass2) { showA('reg-err','Passwords do not match'); return; }
     if (pass.length < 6) { showA('reg-err','Password must be at least 6 characters'); return; }
     const btn = document.getElementById('btn-reg');
@@ -591,7 +562,7 @@
     try {
       const payload = {
         hospitalName: name,
-        googleMapsLink,
+        address: addr,
         departments: depts,
         email: email,
         phone: phone,
@@ -607,7 +578,6 @@
         hospitalToken = lData.token;
         hospitalId    = lData.user.hospitalId;
         hospitalName  = lData.user.name;
-        persistSession();
         openDashboard();
       } else {
         // Registration succeeded but auto-login failed â€” ask user to sign in
@@ -623,7 +593,6 @@
   function doLogout() {
     hospitalId = null; hospitalName = ''; hospitalToken = null;
     allDoctors = []; currentDoctorId = null;
-    clearSession();
     if (socket) socket.disconnect();
     document.getElementById('dashboard').style.display = 'none';
     document.getElementById('sidebar').style.display   = 'none';
@@ -659,7 +628,7 @@
 
   // â”€â”€ SOCKET â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   function initSocket() {
-    socket = io('wss://mediqueue-backend-el5a.onrender.com', { transports: ['websocket'] });
+    socket = io('http://localhost:5000');
     socket.on('connect', () => console.log('Socket connected'));
   }
 
@@ -675,53 +644,38 @@
 
   // â”€â”€ DOCTORS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   async function loadDoctors() {
+    if (!hospitalId) return;
     try {
-      // Guaranteed visibility: load all doctors directly from backend.
-      const res = await fetch('https://mediqueue-backend-el5a.onrender.com/api/doctors', { cache: 'no-store' });
-      const responseData = await res.json();
-
-      console.log('HOSPITAL DATA CHECK:', responseData);
-
-      const incomingData = responseData?.doctors || responseData?.data || responseData;
-      allDoctors = Array.isArray(incomingData) ? [...incomingData] : [];
-
-      if (!Array.isArray(incomingData)) {
-        console.error('Data is not an array. Check API structure.');
-      }
-
+      const res = await fetch(`${API}/doctors?hospitalId=${hospitalId}`);
+      allDoctors = await res.json();
       renderDoctorsTable(allDoctors);
       populateQueueSel(allDoctors);
-      updateDoctorStats(allDoctors);
-    } catch (err) {
-      console.error('API Connection failed:', err);
-      allDoctors = [];
-      renderDoctorsTable(allDoctors);
-      populateQueueSel(allDoctors);
-      updateDoctorStats(allDoctors);
-    }
+      document.getElementById('st-docs').textContent  = allDoctors.length;
+      document.getElementById('st-depts').textContent = [...new Set(allDoctors.map(d=>d.department))].length;
+    } catch(e) { console.error(e); }
   }
+
   function renderDoctorsTable(docs) {
     const tbody = document.getElementById('doc-tbl-body');
-    const safeDoctors = Array.isArray(docs) ? docs : [];
-    if (!safeDoctors.length) {
-      tbody.innerHTML = `<tr><td colspan="4" style="padding:40px 16px;text-align:center;color:var(--muted);"><div style="display:flex;flex-direction:column;align-items:center;gap:8px;"><p>No doctors found for this Hospital ID.</p><p style="font-size:12px;">Check console for raw data log.</p></div></td></tr>`;
+    if (!docs.length) {
+      tbody.innerHTML = `<tr><td colspan="4"><div class="empty"><div class="e-ico">ðŸ©º</div><p>No doctors added yet. Add your first doctor!</p></div></td></tr>`;
       return;
     }
-    tbody.innerHTML = safeDoctors.map((d, index) => `
+    tbody.innerHTML = docs.map(d => `
       <tr>
         <td>
           <div style="display:flex;align-items:center;gap:10px;">
-            <div style="width:32px;height:32px;background:var(--primary-lt);border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;">DR</div>
-            <strong>${d?.name || 'Unknown Doctor'}</strong>
+            <div style="width:32px;height:32px;background:var(--primary-lt);border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:14px;">ðŸ‘¨â€âš•ï¸</div>
+            <strong>${d.name}</strong>
           </div>
         </td>
-        <td><span class="tag tag-blue">${d?.department || 'General'}</span></td>
-        <td style="color:var(--muted);">~${d?.avgConsultationTime || d?.avgTime || 15} min</td>
+        <td><span class="tag tag-blue">${d.department}</span></td>
+        <td style="color:var(--muted);">~${d.avgConsultationTime} min</td>
         <td>
           <div style="display:flex;gap:6px;">
-            <button class="btn btn-outline btn-sm" onclick="openCabinQRForDoctor('${d?._id || ''}','${escQ(d?.name || 'Unknown Doctor')}','${escQ(d?.department || 'General')}')">QR</button>
-            <button class="btn btn-ghost btn-sm" onclick="editDoctor('${d?._id || ''}','${escQ(d?.name || 'Unknown Doctor')}','${escQ(d?.department || 'General')}','${d?.avgConsultationTime || d?.avgTime || 15}')">Edit</button>
-            <button class="btn btn-danger btn-sm" onclick="confirmDeleteDoctor('${d?._id || index}','${escQ(d?.name || 'Unknown Doctor')}')">Delete</button>
+            <button class="btn btn-outline btn-sm" onclick="openCabinQRForDoctor('${d._id}','${escQ(d.name)}','${escQ(d.department)}')">ðŸ“· QR</button>
+            <button class="btn btn-ghost btn-sm" onclick="editDoctor('${d._id}','${escQ(d.name)}','${escQ(d.department)}','${d.avgConsultationTime}')">âœï¸ Edit</button>
+            <button class="btn btn-danger btn-sm" onclick="confirmDeleteDoctor('${d._id}','${escQ(d.name)}')">ðŸ—‘</button>
           </div>
         </td>
       </tr>`).join('');
@@ -871,23 +825,11 @@
   }
 
   // â”€â”€ CABIN QR (Doctor) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-  async function generateCabinQR(doctorId) {
+  function generateCabinQR(doctorId) {
     const el = document.getElementById('qr-inline');
     el.innerHTML = '';
     if (!doctorId) return;
-    const qrHospitalId = hospitalId || DEMO_HOSPITAL_ID;
-    try {
-      const res = await fetch(`${API}/hospitals/${qrHospitalId}/cabin-qr/${doctorId}`, { cache: 'no-store' });
-      const data = await res.json();
-      if (!res.ok || !data?.qrDataUrl) throw new Error(data?.message || 'Failed to generate cabin QR');
-      const img = document.createElement('img');
-      img.src = data.qrDataUrl;
-      img.style.cssText = 'width:120px;height:120px;border-radius:8px;';
-      el.appendChild(img);
-    } catch (e) {
-      el.innerHTML = `<p style="font-size:11px;color:var(--muted);word-break:break-all;">mediqueue://book?doctorId=${doctorId}&hospitalId=${qrHospitalId}</p>`;
-      console.error('Cabin QR render failed:', e);
-    }
+    new QRCode(el, { text:`mediqueue://book?doctorId=${doctorId}&hospitalId=${hospitalId}`, width:120, height:120, colorDark:'#0F172A', colorLight:'#F0F4FF', correctLevel:QRCode.CorrectLevel.H });
   }
 
   function openCabinQRModal() {
@@ -896,24 +838,12 @@
     openCabinQRForDoctor(currentDoctorId, doc?.name||'Doctor', doc?.department||'');
   }
 
-  async function openCabinQRForDoctor(doctorId, name, dept) {
+  function openCabinQRForDoctor(doctorId, name, dept) {
     document.getElementById('m-doc-name').textContent = name;
-    document.getElementById('m-dept').textContent     = `${dept} · ${hospitalName}`;
+    document.getElementById('m-dept').textContent     = `${dept} Â· ${hospitalName}`;
     const el = document.getElementById('qr-render');
     el.innerHTML = '';
-    const qrHospitalId = hospitalId || DEMO_HOSPITAL_ID;
-    try {
-      const res = await fetch(`${API}/hospitals/${qrHospitalId}/cabin-qr/${doctorId}`, { cache: 'no-store' });
-      const data = await res.json();
-      if (!res.ok || !data?.qrDataUrl) throw new Error(data?.message || 'Failed to generate cabin QR');
-      const img = document.createElement('img');
-      img.src = data.qrDataUrl;
-      img.style.cssText = 'width:180px;height:180px;border-radius:8px;';
-      el.appendChild(img);
-    } catch (e) {
-      el.innerHTML = `<p style="font-size:11px;color:var(--muted);word-break:break-all;">mediqueue://book?doctorId=${doctorId}&hospitalId=${qrHospitalId}</p>`;
-      console.error('Cabin QR modal render failed:', e);
-    }
+    new QRCode(el, { text:`mediqueue://book?doctorId=${doctorId}&hospitalId=${hospitalId}`, width:180, height:180, colorDark:'#0F172A', colorLight:'#FFFFFF', correctLevel:QRCode.CorrectLevel.H });
     openModal('modal-cabin-qr');
   }
 
@@ -934,19 +864,17 @@
 
   // â”€â”€ RECEPTION QR (Hospital) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   async function loadReceptionQR() {
-  async function loadReceptionQR() {
-    console.log('Current Hospital ID for QR:', hospitalId);
-    const qrHospitalId = hospitalId || DEMO_HOSPITAL_ID;
-    if (!hospitalId) console.warn('Using demo fallback hospital ID for QR:', DEMO_HOSPITAL_ID);
     try {
-      const res  = await fetch(`${API}/hospitals/${qrHospitalId}/reception-qr`, { cache: 'no-store' });
+      const res  = await fetch(`${API}/hospitals/${hospitalId}/reception-qr`);
       const data = await res.json();
       if (!res.ok) { toast('Failed to load Reception QR'); return; }
 
+      // Show QR card
       document.getElementById('reception-qr-card').style.display = 'block';
       document.getElementById('reception-hosp-name').textContent = data.hospitalName;
       document.getElementById('reception-qr-payload').textContent = data.payload;
 
+      // Render QR from base64
       const el = document.getElementById('qr-reception-render');
       el.innerHTML = '';
       if (data.qrDataUrl) {
@@ -955,18 +883,21 @@
         img.style.cssText = 'width:200px;height:200px;border-radius:10px;';
         el.appendChild(img);
       } else {
-        el.innerHTML = `<p style="font-size:11px;color:var(--muted);word-break:break-all;">${data.payload || ''}</p>`;
+        // Fallback: generate client-side
+        new QRCode(el, { text:data.payload, width:200, height:200, colorDark:'#0F172A', colorLight:'#F0F4FF', correctLevel:QRCode.CorrectLevel.H });
       }
-    } catch (e) {
+    } catch(e) {
+      // Fallback: generate client-side if backend QR route not yet deployed
       const el = document.getElementById('qr-reception-render');
       el.innerHTML = '';
-      const payload = `mediqueue://hospital?id=${qrHospitalId}`;
-      el.innerHTML = `<p style="font-size:11px;color:var(--muted);word-break:break-all;">${payload}</p>`;
+      new QRCode(el, { text:`mediqueue://hospital?id=${hospitalId}`, width:200, height:200, colorDark:'#0F172A', colorLight:'#F0F4FF', correctLevel:QRCode.CorrectLevel.H });
       document.getElementById('reception-qr-card').style.display = 'block';
       document.getElementById('reception-hosp-name').textContent = hospitalName;
-      document.getElementById('reception-qr-payload').textContent = payload;
+      document.getElementById('reception-qr-payload').textContent = `mediqueue://hospital?id=${hospitalId}`;
     }
   }
+
+  function printReceptionQR() {
     const img = document.getElementById('qr-reception-render').querySelector('img');
     const win = window.open('');
     win.document.write(`<html><body style="text-align:center;padding:48px;font-family:sans-serif;">
@@ -984,10 +915,8 @@
     if (!hospitalId) return;
     hideA('set-err'); hideA('set-ok');
     try {
-      const res  = await fetch(`${API}/hospitals`, { cache: 'no-store' });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data?.message || 'Failed to load hospitals');
-      const list = Array.isArray(data) ? data : (Array.isArray(data?.hospitals) ? data.hospitals : []);
+      const res  = await fetch(`${API}/hospitals`);
+      const list = await res.json();
       const h    = list.find(x => x._id === hospitalId);
       if (!h) return;
       hospitalDepartments = h.departments || [];
@@ -995,7 +924,7 @@
       document.getElementById('set-addr').value  = h.address || '';
       document.getElementById('set-depts').value = hospitalDepartments.join(', ');
       populateDeptDropdowns();
-    } catch(e) { console.error('loadSettingsForm error:', e); }
+    } catch(e) { console.error(e); }
   }
 
   function populateDeptDropdowns() {
@@ -1014,13 +943,13 @@
   async function saveSettings() {
     const btn   = document.getElementById('btn-settings');
     const name  = document.getElementById('set-name').value.trim();
-    const googleMapsLink = document.getElementById('set-addr').value.trim();
+    const addr  = document.getElementById('set-addr').value.trim();
     const depts = document.getElementById('set-depts').value.split(',').map(d=>d.trim()).filter(Boolean);
     hideA('set-err'); hideA('set-ok');
-    if (!name || !googleMapsLink) { showA('set-err','Name and Google Maps link are required'); return; }
+    if (!name || !addr) { showA('set-err','Name and address are required'); return; }
     btn.textContent = 'Saving...'; btn.disabled = true;
     try {
-      const res  = await fetch(`${API}/hospitals/${hospitalId}`, {method:'PUT', headers:{'Content-Type':'application/json'}, body:JSON.stringify({name, googleMapsLink, departments:depts})});
+      const res  = await fetch(`${API}/hospitals/${hospitalId}`, {method:'PUT', headers:{'Content-Type':'application/json'}, body:JSON.stringify({name, address:addr, departments:depts})});
       const data = await res.json();
       if (!res.ok) { showA('set-err', data.message); return; }
       hospitalName = data.name;
@@ -1037,19 +966,6 @@
   function showA(id, msg) { const el=document.getElementById(id); el.style.display='flex'; document.getElementById(`${id}-msg`).textContent=msg; }
   function hideA(id)      { document.getElementById(id).style.display='none'; }
   function toast(msg)     { const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),3000); }
-  function updateDoctorStats(doctors) {
-    const list = Array.isArray(doctors) ? doctors : [];
-    document.getElementById('st-docs').textContent = String(list.length);
-    const uniqueDepts = [...new Set(list.map(d => d?.department).filter(Boolean))];
-    document.getElementById('st-depts').textContent = String(uniqueDepts.length);
-  }
-  function normalizeDoctorsResponse(data) {
-    if (Array.isArray(data)) return data;
-    if (Array.isArray(data?.doctors)) return data.doctors;
-    if (Array.isArray(data?.data)) return data.data;
-    console.error('Data received is not an array:', data);
-    return [];
-  }
   function escQ(str)      { return String(str||'').replace(/'/g,"\\'").replace(/"/g,"&quot;"); }
 </script>
 </body>

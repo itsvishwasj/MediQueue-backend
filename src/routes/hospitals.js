@@ -2,26 +2,12 @@ const router = require('express').Router();
 const Hospital = require('../models/Hospital');
 const QRCode = require('qrcode');
 const Doctor = require('../models/Doctor');
-const { extractCoordinatesFromGoogleMapsLink } = require('../utils/googleMaps');
 
 // POST /api/hospitals
 router.post('/', async (req, res) => {
   try {
-    const { name, address, googleMapsLink, departments } = req.body;
-    const { mapsLink, location } = await extractCoordinatesFromGoogleMapsLink(googleMapsLink || address);
-    if (!mapsLink) {
-      return res.status(400).json({ message: 'Google Maps link is required' });
-    }
-    if (!location) {
-      return res.status(400).json({ message: 'Enter a valid Google Maps link with coordinates' });
-    }
-    const hospital = new Hospital({
-      name,
-      address: mapsLink,
-      fullAddress: mapsLink,
-      departments,
-      location: location || undefined,
-    });
+    const { name, address, departments } = req.body;
+    const hospital = new Hospital({ name, address, departments });
     await hospital.save();
     res.status(201).json(hospital);
   } catch (err) {
@@ -34,17 +20,6 @@ router.get('/', async (req, res) => {
   try {
     const hospitals = await Hospital.find();
     res.json(hospitals);
-  } catch (err) {
-    res.status(500).json({ message: err.message });
-  }
-});
-
-// GET /api/hospitals/:id - Get single hospital details
-router.get('/:id', async (req, res) => {
-  try {
-    const hospital = await Hospital.findById(req.params.id);
-    if (!hospital) return res.status(404).json({ message: 'Hospital not found' });
-    res.json(hospital);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
@@ -64,21 +39,10 @@ router.get('/:id/departments', async (req, res) => {
 // PUT /api/hospitals/:id - Edit hospital profile
 router.put('/:id', async (req, res) => {
   try {
-    const { name, address, googleMapsLink, departments } = req.body;
+    const { name, address, departments } = req.body;
     const update = {};
     if (name) update.name = name;
-    if (googleMapsLink || address) {
-      const { mapsLink, location } = await extractCoordinatesFromGoogleMapsLink(googleMapsLink || address);
-      if (!mapsLink) {
-        return res.status(400).json({ message: 'Google Maps link is required' });
-      }
-      if (!location) {
-        return res.status(400).json({ message: 'Enter a valid Google Maps link with coordinates' });
-      }
-      update.address = mapsLink;
-      update.fullAddress = mapsLink;
-      update.location = location;
-    }
+    if (address) update.address = address;
     if (departments) update.departments = Array.isArray(departments) 
         ? departments : departments.split(',').map(d => d.trim()).filter(Boolean);
  
@@ -118,31 +82,6 @@ router.get('/:id/reception-qr', async (req, res) => {
     res.json({
       hospitalId: req.params.id,
       hospitalName: hospital.name,
-      payload,
-      qrDataUrl
-    });
-  } catch (err) {
-    res.status(500).json({ message: err.message });
-  }
-});
-
-// GET /api/hospitals/:id/cabin-qr/:doctorId - Generate doctor cabin QR
-router.get('/:id/cabin-qr/:doctorId', async (req, res) => {
-  try {
-    const hospital = await Hospital.findById(req.params.id);
-    if (!hospital) return res.status(404).json({ message: 'Hospital not found' });
-
-    const doctor = await Doctor.findById(req.params.doctorId);
-    if (!doctor) return res.status(404).json({ message: 'Doctor not found' });
-
-    const payload = `mediqueue://book?doctorId=${req.params.doctorId}&hospitalId=${req.params.id}`;
-    const qrDataUrl = await QRCode.toDataURL(payload, {
-      width: 400, margin: 2, color: { dark: '#0F172A', light: '#FFFFFF' }
-    });
-
-    res.json({
-      hospitalId: req.params.id,
-      doctorId: req.params.doctorId,
       payload,
       qrDataUrl
     });

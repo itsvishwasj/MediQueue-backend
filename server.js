@@ -30,8 +30,19 @@ app.use((req, res, next) => {
   next();
 });
 app.use(express.json());
-// Serve admin dashboard
-app.use(express.static('public'));
+// Serve portal pages without caching stale HTML.
+app.use(express.static('public', {
+  etag: false,
+  lastModified: false,
+  setHeaders: (res, filePath) => {
+    if (path.extname(filePath).toLowerCase() === '.html') {
+      res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
+      res.setHeader('Pragma', 'no-cache');
+      res.setHeader('Expires', '0');
+      res.setHeader('Surrogate-Control', 'no-store');
+    }
+  }
+}));
 
 app.get('/', (req, res) => {
   res.status(200).send('MediQueue Backend is Live and Healthy!');

@@ -20,7 +20,7 @@
     *{margin:0;padding:0;box-sizing:border-box;}
     body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--ink);display:flex;flex-direction:column;height:100vh;overflow:hidden;}
 
-    /* Ã¢â€â‚¬Ã¢â€â‚¬ HEADER Ã¢â€â‚¬Ã¢â€â‚¬ */
+    /* ── HEADER ── */
     header{display:flex;align-items:center;justify-content:space-between;padding:0 24px;height:60px;background:var(--surface);border-bottom:1px solid var(--border);flex-shrink:0;}
     .h-logo{display:flex;align-items:center;gap:10px;}
     .h-icon{width:34px;height:34px;background:var(--primary);border-radius:9px;display:flex;align-items:center;justify-content:center;color:white;font-weight:900;font-size:17px;}
@@ -34,10 +34,10 @@
     .back-btn{font-size:12px;color:var(--muted);text-decoration:none;transition:color 0.2s;}
     .back-btn:hover{color:var(--primary);}
 
-    /* Ã¢â€â‚¬Ã¢â€â‚¬ APP SHELL Ã¢â€â‚¬Ã¢â€â‚¬ */
+    /* ── APP SHELL ── */
     .app{display:flex;flex:1;overflow:hidden;}
 
-    /* Ã¢â€â‚¬Ã¢â€â‚¬ SIDEBAR Ã¢â€â‚¬Ã¢â€â‚¬ */
+    /* ── SIDEBAR ── */
     .sidebar{width:220px;background:var(--surface);border-right:1px solid var(--border);padding:20px 12px;display:flex;flex-direction:column;gap:2px;overflow-y:auto;flex-shrink:0;}
     .s-label{font-size:10px;font-weight:700;color:var(--muted);letter-spacing:0.08em;text-transform:uppercase;padding:0 10px;margin:14px 0 6px;}
     .s-label:first-child{margin-top:0;}
@@ -48,10 +48,10 @@
     .s-logout{margin-top:auto;color:var(--danger) !important;}
     .s-logout:hover{background:var(--danger-lt) !important;color:var(--danger) !important;}
 
-    /* Ã¢â€â‚¬Ã¢â€â‚¬ MAIN Ã¢â€â‚¬Ã¢â€â‚¬ */
+    /* ── MAIN ── */
     .main{flex:1;overflow-y:auto;padding:24px;}
 
-    /* Ã¢â€â‚¬Ã¢â€â‚¬ AUTH SCREEN Ã¢â€â‚¬Ã¢â€â‚¬ */
+    /* ── AUTH SCREEN ── */
     #auth-screen{
       display:flex;align-items:center;justify-content:center;
       position:fixed;inset:0;background:var(--bg);z-index:300;
@@ -67,19 +67,19 @@
     .auth-tab{flex:1;padding:11px;border:none;background:none;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:700;color:var(--muted);cursor:pointer;transition:background 0.2s,color 0.2s;}
     .auth-tab.active{background:var(--primary);color:white;box-shadow:0 4px 12px rgba(37,99,235,0.2);}
 
-    /* Ã¢â€â‚¬Ã¢â€â‚¬ CARDS Ã¢â€â‚¬Ã¢â€â‚¬ */
+    /* ── CARDS ── */
     .card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:16px;}
     .card-title{font-size:15px;font-weight:800;margin-bottom:16px;display:flex;align-items:center;gap:8px;letter-spacing:-0.2px;}
     .card-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
 
-    /* Ã¢â€â‚¬Ã¢â€â‚¬ FORMS Ã¢â€â‚¬Ã¢â€â‚¬ */
+    /* ── FORMS ── */
     .fg{margin-bottom:14px;}
     .fg label{display:block;font-size:12px;font-weight:700;color:var(--mid);margin-bottom:6px;}
     .fg input,.fg select,.fg textarea{width:100%;padding:10px 13px;border:1.5px solid rgba(37,99,235,0.12);border-radius:10px;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--ink);background:var(--surface);outline:none;transition:border-color 0.2s,box-shadow 0.2s;}
     .fg input:focus,.fg select:focus,.fg textarea:focus{border-color:var(--primary);box-shadow:0 0 0 3px var(--primary-lt);}
     .g2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
 
-    /* Ã¢â€â‚¬Ã¢â€â‚¬ BUTTONS Ã¢â€â‚¬Ã¢â€â‚¬ */
+    /* ── BUTTONS ── */
     .btn{padding:10px 18px;border:none;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:700;cursor:pointer;transition:transform 0.15s,box-shadow 0.15s,opacity 0.15s;display:inline-flex;align-items:center;gap:6px;}
     .btn:hover:not(:disabled){transform:translateY(-1px);}
     .btn:disabled{opacity:0.5;cursor:not-allowed;}
@@ -94,18 +94,18 @@
     .btn-full{width:100%;justify-content:center;}
     .btn-sm{padding:6px 12px;font-size:12px;}
 
-    /* Ã¢â€â‚¬Ã¢â€â‚¬ ALERTS Ã¢â€â‚¬Ã¢â€â‚¬ */
+    /* ── ALERTS ── */
     .alert{padding:10px 14px;border-radius:10px;font-size:13px;margin-bottom:12px;display:flex;align-items:flex-start;gap:8px;}
     .alert-error{background:var(--danger-lt);color:#B91C1C;border:1px solid rgba(240,59,59,0.2);}
     .alert-success{background:var(--success-lt);color:#065F46;border:1px solid rgba(0,201,122,0.2);}
 
-    /* Ã¢â€â‚¬Ã¢â€â‚¬ STATS Ã¢â€â‚¬Ã¢â€â‚¬ */
+    /* ── STATS ── */
     .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px;}
     .stat{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px;}
     .stat .v{font-size:28px;font-weight:900;color:var(--primary);letter-spacing:-1px;}
     .stat .l{font-size:11px;color:var(--muted);font-weight:600;margin-top:3px;}
 
-    /* Ã¢â€â‚¬Ã¢â€â‚¬ TABLE Ã¢â€â‚¬Ã¢â€â‚¬ */
+    /* ── TABLE ── */
     .tbl-wrap{border-radius:12px;overflow:hidden;border:1px solid var(--border);}
     table{width:100%;border-collapse:collapse;font-size:13px;}
     th{background:var(--bg);padding:9px 14px;text-align:left;font-size:11px;font-weight:700;color:var(--muted);letter-spacing:0.05em;text-transform:uppercase;}
@@ -118,7 +118,7 @@
     .tag-blue{background:var(--primary-lt);color:var(--primary);}
     .tag-gray{background:var(--bg);color:var(--muted);}
 
-    /* Ã¢â€â‚¬Ã¢â€â‚¬ NOW SERVING Ã¢â€â‚¬Ã¢â€â‚¬ */
+    /* ── NOW SERVING ── */
     .now-serving{background:linear-gradient(135deg,var(--primary) 0%,#1d4ed8 100%);color:white;border-radius:20px;padding:28px;text-align:center;margin-bottom:16px;box-shadow:0 10px 32px rgba(37,99,235,0.25);}
     .ns-label{font-size:11px;font-weight:700;opacity:0.65;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:6px;}
     .ns-token{font-size:68px;font-weight:900;line-height:1;letter-spacing:-3px;margin-bottom:6px;}
@@ -127,19 +127,19 @@
     .next-btn:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 8px 24px rgba(15,23,42,0.2);}
     .next-btn:disabled{opacity:0.5;cursor:not-allowed;}
 
-    /* Ã¢â€â‚¬Ã¢â€â‚¬ QUEUE TABLE Ã¢â€â‚¬Ã¢â€â‚¬ */
+    /* ── QUEUE TABLE ── */
     .queue-wrap{border-radius:12px;overflow:hidden;border:1px solid var(--border);}
 
-    /* Ã¢â€â‚¬Ã¢â€â‚¬ EMPTY STATE Ã¢â€â‚¬Ã¢â€â‚¬ */
+    /* ── EMPTY STATE ── */
     .empty{text-align:center;padding:40px 20px;color:var(--muted);}
     .empty .e-ico{font-size:28px;margin-bottom:10px;}
     .empty p{font-size:14px;}
 
-    /* Ã¢â€â‚¬Ã¢â€â‚¬ QR SECTION Ã¢â€â‚¬Ã¢â€â‚¬ */
+    /* ── QR SECTION ── */
     #qr-reception-render{display:flex;justify-content:center;padding:20px;background:var(--bg);border-radius:14px;margin:16px 0;}
     .qr-cabin-wrap{display:flex;justify-content:center;margin-bottom:14px;padding:16px;background:var(--bg);border-radius:12px;}
 
-    /* Ã¢â€â‚¬Ã¢â€â‚¬ MODAL Ã¢â€â‚¬Ã¢â€â‚¬ */
+    /* ── MODAL ── */
     .overlay{display:none;position:fixed;inset:0;background:rgba(15,23,42,0.55);backdrop-filter:blur(4px);z-index:400;align-items:center;justify-content:center;padding:16px;}
     .overlay.show{display:flex;}
     .modal{background:var(--surface);border-radius:24px;padding:32px;width:100%;max-width:380px;box-shadow:0 32px 80px rgba(0,0,0,0.2);max-height:90vh;overflow-y:auto;}
@@ -161,20 +161,45 @@
     .confirm-btns{display:flex;gap:10px;}
     .confirm-btns .btn{flex:1;justify-content:center;}
 
-    /* Ã¢â€â‚¬Ã¢â€â‚¬ TOAST Ã¢â€â‚¬Ã¢â€â‚¬ */
+    /* ── LOCATION PICKER ── */
+    .loc-picker{position:relative;margin-bottom:14px;}
+    .loc-picker label{display:block;font-size:12px;font-weight:700;color:var(--mid);margin-bottom:6px;}
+    .loc-search-wrap{position:relative;display:flex;align-items:center;}
+    .loc-search-wrap .loc-icon{position:absolute;left:12px;font-size:15px;pointer-events:none;line-height:1;}
+    .loc-search-wrap input{width:100%;padding:10px 13px 10px 36px;border:1.5px solid rgba(37,99,235,0.12);border-radius:10px;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--ink);background:var(--surface);outline:none;transition:border-color 0.2s,box-shadow 0.2s;}
+    .loc-search-wrap input:focus{border-color:var(--primary);box-shadow:0 0 0 3px var(--primary-lt);}
+    .loc-search-wrap input.loc-selected{border-color:var(--success);box-shadow:0 0 0 3px rgba(0,201,122,0.1);}
+    .loc-spinner{position:absolute;right:12px;width:14px;height:14px;border:2px solid var(--border);border-top-color:var(--primary);border-radius:50%;animation:spin 0.7s linear infinite;display:none;}
+    @keyframes spin{to{transform:rotate(360deg);}}
+    .loc-dropdown{position:absolute;top:calc(100% + 6px);left:0;right:0;background:var(--surface);border:1.5px solid var(--border);border-radius:12px;box-shadow:0 12px 32px rgba(37,99,235,0.12);z-index:9999;overflow:hidden;display:none;max-height:240px;overflow-y:auto;}
+    .loc-dropdown.open{display:block;}
+    .loc-item{padding:11px 14px;cursor:pointer;border-bottom:1px solid var(--border);transition:background 0.12s;}
+    .loc-item:last-child{border-bottom:none;}
+    .loc-item:hover{background:var(--primary-lt);}
+    .loc-item-name{font-size:13px;font-weight:700;color:var(--ink);margin-bottom:2px;}
+    .loc-item-addr{font-size:11px;color:var(--muted);line-height:1.4;}
+    .loc-item-msg{padding:12px 14px;font-size:13px;color:var(--muted);text-align:center;}
+    .loc-confirmed{display:none;align-items:center;gap:8px;background:var(--success-lt);border:1px solid rgba(0,201,122,0.25);border-radius:8px;padding:8px 12px;margin-top:8px;}
+    .loc-confirmed.show{display:flex;}
+    .loc-confirmed .loc-pin{font-size:14px;}
+    .loc-confirmed .loc-coords{font-size:11px;font-weight:700;color:#065F46;flex:1;}
+    .loc-confirmed .loc-clear{font-size:11px;color:var(--muted);background:none;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;padding:2px 6px;border-radius:6px;transition:background 0.15s,color 0.15s;}
+    .loc-confirmed .loc-clear:hover{background:rgba(240,59,59,0.08);color:var(--danger);}
+
+    /* ── TOAST ── */
     #toast{position:fixed;bottom:24px;right:24px;background:var(--ink);color:white;padding:12px 20px;border-radius:12px;font-size:13px;font-weight:600;box-shadow:0 12px 32px rgba(0,0,0,0.2);transform:translateY(80px);opacity:0;transition:0.3s cubic-bezier(0.175,0.885,0.32,1.275);z-index:500;}
     #toast.show{transform:translateY(0);opacity:1;}
 
-    /* Ã¢â€â‚¬Ã¢â€â‚¬ PAGE ROUTING Ã¢â€â‚¬Ã¢â€â‚¬ */
+    /* ── PAGE ROUTING ── */
     .page{display:none;}
     .page.active{display:block;}
     #dashboard{display:none;}
 
-    /* Ã¢â€â‚¬Ã¢â€â‚¬ SETTINGS Ã¢â€â‚¬Ã¢â€â‚¬ */
+    /* ── SETTINGS ── */
     .settings-section{margin-bottom:20px;}
     .settings-section-title{font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.07em;margin-bottom:10px;}
 
-    /* Ã¢â€â‚¬Ã¢â€â‚¬ RECEPTION QR Ã¢â€â‚¬Ã¢â€â‚¬ */
+    /* ── RECEPTION QR ── */
     .reception-hero{text-align:center;padding:32px 24px;background:linear-gradient(135deg,var(--primary-lt) 0%,rgba(0,201,122,0.05) 100%);border-radius:18px;border:1px dashed rgba(37,99,235,0.2);margin-bottom:20px;}
     .reception-hero h3{font-size:17px;font-weight:900;margin-bottom:6px;}
     .reception-hero p{font-size:13px;color:var(--muted);max-width:320px;margin:0 auto 16px;}
@@ -182,9 +207,9 @@
 </head>
 <body>
 
-<!-- Ã¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢Â
-     AUTH SCREEN Ã¢â‚¬â€ shown before login
-Ã¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢Â -->
+<!-- ══════════════════════════════════════════
+     AUTH SCREEN — shown before login
+══════════════════════════════════════════ -->
 <div id="auth-screen">
   <div class="auth-box">
     <div class="auth-logo">
@@ -218,15 +243,26 @@
       <div class="card">
         <div id="reg-err" class="alert alert-error" style="display:none;"><span id="reg-err-msg"></span></div>
         <div class="fg"><label>Hospital Name *</label><input id="r-name" placeholder="e.g. Apollo Clinic"/></div>
-        <div class="location-picker" style="margin-bottom: 20px; background: #f8f9fa; padding: 15px; border-radius: 8px; position: relative;">
-          <label for="registerHospitalSearch" style="font-weight: bold; font-size: 13px; display: block; margin-bottom: 6px;">Find Hospital Location:</label>
-          <input type="text" id="registerHospitalSearch" oninput="handleRegisterHospitalSearch(this.value)" autocomplete="off" placeholder='enter full name ("Apollo clinic")' style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; font-family: inherit;">
-          <ul id="registerSearchResults" style="list-style-type: none; padding: 0; margin: 8px 0 0; max-height: 200px; overflow-y: auto; background: white; border-radius: 4px; box-shadow: 0 8px 16px rgba(0,0,0,0.15); position: absolute; width: calc(100% - 30px); z-index: 1000;"></ul>
-          <input type="hidden" id="r-addr">
-          <input type="hidden" id="registerHospitalLat" name="latitude">
-          <input type="hidden" id="registerHospitalLon" name="longitude">
-          <input type="hidden" id="registerHospitalAddress" name="fullAddress">
-          <p id="registerSelectedLocationText" style="color: #00C97A; font-size: 0.9em; margin-top: 10px; font-weight: bold;"></p>
+        <div class="loc-picker">
+          <label>📍 Find Your Location *</label>
+          <div class="loc-search-wrap">
+            <span class="loc-icon">🏥</span>
+            <input type="text" id="registerHospitalSearch" autocomplete="off"
+                   placeholder="Enter full name (eg., Apollo Clinic)"
+                   oninput="handleRegisterHospitalSearch(this.value)"
+                   onblur="setTimeout(()=>closeRegLocDropdown(),180)"/>
+            <div class="loc-spinner" id="reg-hosp-spinner"></div>
+          </div>
+          <div class="loc-dropdown" id="registerSearchResults"></div>
+          <div class="loc-confirmed" id="reg-hosp-confirmed">
+            <span class="loc-pin">📌</span>
+            <span class="loc-coords" id="reg-hosp-coords-text"></span>
+            <button class="loc-clear" onclick="clearRegLocPicker()">✕ Clear</button>
+          </div>
+          <input type="hidden" id="r-addr"/>
+          <input type="hidden" id="registerHospitalLat"/>
+          <input type="hidden" id="registerHospitalLon"/>
+          <input type="hidden" id="registerHospitalAddress"/>
         </div>
         <div class="fg"><label>Departments <span style="font-weight:400;color:var(--muted);">(comma separated)</span></label><input id="r-depts" placeholder="Cardiology, General, Orthopedics"/></div>
         <div class="g2">
@@ -251,9 +287,9 @@
   </div>
 </div>
 
-<!-- Ã¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢Â
+<!-- ══════════════════════════════════════════
      MAIN HEADER (shown post-login)
-Ã¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢Â -->
+══════════════════════════════════════════ -->
 <header>
   <div class="h-logo">
     <div class="h-icon">+</div>
@@ -268,25 +304,25 @@
 
 <div class="app">
 
-  <!-- Ã¢â€â‚¬Ã¢â€â‚¬ SIDEBAR Ã¢â€â‚¬Ã¢â€â‚¬ -->
+  <!-- ── SIDEBAR ── -->
   <div class="sidebar" id="sidebar" style="display:none;">
     <div class="s-label">Manage</div>
-    <button class="s-btn active" onclick="showPage('p-queue',this)"><span class="ico">Ã°Å¸â€Â¢</span>Live Queue</button>
-    <button class="s-btn" onclick="showPage('p-doctors',this)"><span class="ico">Ã°Å¸â€˜Â¨Ã¢â‚¬ÂÃ¢Å¡â€¢Ã¯Â¸Â</span>Doctors</button>
+    <button class="s-btn active" onclick="showPage('p-queue',this)"><span class="ico">🔢</span>Live Queue</button>
+    <button class="s-btn" onclick="showPage('p-doctors',this)"><span class="ico">👨‍⚕️</span>Doctors</button>
 
     <div class="s-label">Hospital</div>
-    <button class="s-btn" onclick="showPage('p-reception',this)"><span class="ico">Ã°Å¸ÂÂ¢</span>Reception QR</button>
-    <button class="s-btn" onclick="showPage('p-settings',this)"><span class="ico">Ã¢Å¡â„¢Ã¯Â¸Â</span>Settings</button>
+    <button class="s-btn" onclick="showPage('p-reception',this)"><span class="ico">🏢</span>Reception QR</button>
+    <button class="s-btn" onclick="showPage('p-settings',this)"><span class="ico">⚙️</span>Settings</button>
 
-    <button class="s-btn s-logout" onclick="doLogout()" style="margin-top:auto;"><span class="ico">Ã°Å¸Å¡Âª</span>Sign Out</button>
+    <button class="s-btn s-logout" onclick="doLogout()" style="margin-top:auto;"><span class="ico">🚪</span>Sign Out</button>
   </div>
 
   <div class="main">
     <div id="dashboard">
 
-      <!-- Ã¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢Â
+      <!-- ══════════════════════════════════════════
            PAGE: LIVE QUEUE
-      Ã¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢Â -->
+      ═══════════════════════════════════════════ -->
       <div id="p-queue" class="page active">
         <div style="display:flex;gap:20px;align-items:flex-start;">
 
@@ -294,7 +330,7 @@
           <div style="flex:1;">
             <div class="card">
               <div class="card-header">
-                <div class="card-title" style="margin:0;">Ã°Å¸Âªâ€˜ Waiting Queue</div>
+                <div class="card-title" style="margin:0;">🪑 Waiting Queue</div>
                 <span id="q-count" style="font-size:12px;color:var(--muted);font-weight:600;"></span>
               </div>
               <div class="fg" style="margin-bottom:0;">
@@ -306,7 +342,7 @@
               </div>
             </div>
 
-            <div id="q-empty" class="empty"><div class="e-ico">Ã°Å¸Âªâ€˜</div><p>Select a doctor to view queue</p></div>
+            <div id="q-empty" class="empty"><div class="e-ico">🪑</div><p>Select a doctor to view queue</p></div>
             <div class="queue-wrap" id="q-table" style="display:none;">
               <table>
                 <thead><tr><th>#</th><th>Token</th><th>Patient</th><th>Type</th><th>Wait</th></tr></thead>
@@ -322,16 +358,16 @@
               <div class="ns-token" id="ns-token">--</div>
               <div class="ns-name"  id="ns-name">No patient yet</div>
             </div>
-            <button class="next-btn" id="next-btn" onclick="nextPatient()">Call Next Patient Ã¢â€ â€™</button>
+            <button class="next-btn" id="next-btn" onclick="nextPatient()">Call Next Patient →</button>
 
             <!-- Cabin QR Card -->
             <div class="card" style="text-align:center;">
-              <div class="card-title" style="justify-content:center;">Ã°Å¸â€œÂ· Cabin QR Code</div>
+              <div class="card-title" style="justify-content:center;">📷 Cabin QR Code</div>
               <p style="font-size:12px;color:var(--muted);margin-bottom:14px;">Patient scans at cabin door to check in</p>
               <div class="qr-cabin-wrap" id="qr-inline"></div>
               <div style="display:flex;gap:8px;">
-                <button class="btn btn-ghost btn-sm btn-full" onclick="openCabinQRModal()">Ã°Å¸â€Â Enlarge</button>
-                <button class="btn btn-outline btn-sm btn-full" onclick="printCabinQR()">Ã°Å¸â€“Â¨Ã¯Â¸Â Print</button>
+                <button class="btn btn-ghost btn-sm btn-full" onclick="openCabinQRModal()">🔍 Enlarge</button>
+                <button class="btn btn-outline btn-sm btn-full" onclick="printCabinQR()">🖨️ Print</button>
               </div>
             </div>
           </div>
@@ -339,9 +375,9 @@
         </div>
       </div>
 
-      <!-- Ã¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢Â
+      <!-- ══════════════════════════════════════════
            PAGE: DOCTORS
-      Ã¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢Â -->
+      ═══════════════════════════════════════════ -->
       <div id="p-doctors" class="page">
 
         <div class="stats" id="doc-stats">
@@ -352,7 +388,7 @@
 
         <div class="card">
           <div class="card-header">
-            <div class="card-title" style="margin:0;">Ã°Å¸â€˜Â¨Ã¢â‚¬ÂÃ¢Å¡â€¢Ã¯Â¸Â All Doctors</div>
+            <div class="card-title" style="margin:0;">👨‍⚕️ All Doctors</div>
             <button class="btn btn-primary btn-sm" onclick="openModal('modal-add-doctor')">+ Add Doctor</button>
           </div>
 
@@ -367,38 +403,38 @@
         </div>
       </div>
 
-      <!-- Ã¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢Â
+      <!-- ══════════════════════════════════════════
            PAGE: RECEPTION CENTER (Hospital QR)
-      Ã¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢Â -->
+      ═══════════════════════════════════════════ -->
       <div id="p-reception" class="page">
         <div class="reception-hero">
-          <h3>Ã°Å¸ÂÂ¢ Reception QR Code</h3>
+          <h3>🏢 Reception QR Code</h3>
           <p>Place this QR at your front desk. Patients scan it to see all available doctors and book their slot.</p>
-          <button class="btn btn-primary" onclick="loadReceptionQR()">Generate QR Ã¢â€ â€™</button>
+          <button class="btn btn-primary" onclick="loadReceptionQR()">Generate QR →</button>
         </div>
 
         <div id="reception-qr-card" style="display:none;">
           <div class="card" style="text-align:center;">
-            <div class="card-title" style="justify-content:center;">Ã°Å¸ÂÂ¢ Hospital Reception QR</div>
+            <div class="card-title" style="justify-content:center;">🏢 Hospital Reception QR</div>
             <p style="font-size:13px;color:var(--muted);margin-bottom:4px;" id="reception-hosp-name"></p>
             <p style="font-size:12px;color:var(--muted);margin-bottom:16px;">Patients scan to browse all doctors</p>
             <div id="qr-reception-render"></div>
             <p style="font-size:11px;color:var(--muted);margin-bottom:20px;font-family:monospace;" id="reception-qr-payload"></p>
             <div style="display:flex;gap:10px;justify-content:center;">
-              <button class="btn btn-primary" onclick="printReceptionQR()">Ã°Å¸â€“Â¨Ã¯Â¸Â Print for Front Desk</button>
-              <button class="btn btn-ghost" onclick="loadReceptionQR()">Ã°Å¸â€â€ž Regenerate</button>
+              <button class="btn btn-primary" onclick="printReceptionQR()">🖨️ Print for Front Desk</button>
+              <button class="btn btn-ghost" onclick="loadReceptionQR()">🔄 Regenerate</button>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- Ã¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢Â
+      <!-- ══════════════════════════════════════════
            PAGE: SETTINGS
-      Ã¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢Â -->
+      ═══════════════════════════════════════════ -->
       <div id="p-settings" class="page">
         <div class="card">
           <div class="card-header">
-            <div class="card-title" style="margin:0;">Ã¢Å¡â„¢Ã¯Â¸Â Hospital Settings</div>
+            <div class="card-title" style="margin:0;">⚙️ Hospital Settings</div>
           </div>
           <div id="set-err" class="alert alert-error" style="display:none;"><span id="set-err-msg"></span></div>
           <div id="set-ok"  class="alert alert-success" style="display:none;"><span id="set-ok-msg"></span></div>
@@ -417,7 +453,7 @@
           </div>
 
           <div style="display:flex;gap:10px;margin-top:4px;">
-            <button class="btn btn-primary" id="btn-settings" onclick="saveSettings()">Save Changes Ã¢â€ â€™</button>
+            <button class="btn btn-primary" id="btn-settings" onclick="saveSettings()">Save Changes →</button>
             <button class="btn btn-ghost" onclick="loadSettingsForm()">Reset</button>
           </div>
         </div>
@@ -428,14 +464,14 @@
 </div><!-- /app -->
 
 
-<!-- Ã¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢Â
+<!-- ════════════════════════════════════════════
      MODAL: ADD DOCTOR
-Ã¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢Â -->
+════════════════════════════════════════════ -->
 <div class="overlay" id="modal-add-doctor">
   <div class="modal">
     <div class="modal-header">
-      <h3>Ã¢Å¾â€¢ Add Doctor</h3>
-      <button class="modal-close" onclick="closeModal('modal-add-doctor')">Ã¢Å“â€¢</button>
+      <h3>âž• Add Doctor</h3>
+      <button class="modal-close" onclick="closeModal('modal-add-doctor')">✕</button>
     </div>
     <div id="doc-err" class="alert alert-error" style="display:none;"><span id="doc-err-msg"></span></div>
     <div id="doc-ok"  class="alert alert-success" style="display:none;"><span id="doc-ok-msg"></span></div>
@@ -444,19 +480,19 @@
     <div class="fg"><label>Avg. Consultation Time (minutes)</label><input id="d-time" type="number" value="10" min="1" max="60"/></div>
     <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:4px;">
       <button class="btn btn-ghost" onclick="closeModal('modal-add-doctor')">Cancel</button>
-      <button class="btn btn-primary" id="btn-add-doc" onclick="addDoctor()">Add Doctor Ã¢â€ â€™</button>
+      <button class="btn btn-primary" id="btn-add-doc" onclick="addDoctor()">Add Doctor →</button>
     </div>
   </div>
 </div>
 
-<!-- Ã¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢Â
+<!-- ════════════════════════════════════════════
      MODAL: EDIT DOCTOR
-Ã¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢Â -->
+════════════════════════════════════════════ -->
 <div class="overlay" id="modal-edit-doctor">
   <div class="modal">
     <div class="modal-header">
-      <h3>Ã¢Å“ÂÃ¯Â¸Â Edit Doctor</h3>
-      <button class="modal-close" onclick="closeModal('modal-edit-doctor')">Ã¢Å“â€¢</button>
+      <h3>✏️ Edit Doctor</h3>
+      <button class="modal-close" onclick="closeModal('modal-edit-doctor')">✕</button>
     </div>
     <div id="ed-err" class="alert alert-error" style="display:none;"><span id="ed-err-msg"></span></div>
     <input type="hidden" id="ed-id"/>
@@ -465,44 +501,44 @@
     <div class="fg"><label>Avg. Consultation Time (minutes)</label><input id="ed-time" type="number" min="1"/></div>
     <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:4px;">
       <button class="btn btn-ghost" onclick="closeModal('modal-edit-doctor')">Cancel</button>
-      <button class="btn btn-primary" id="btn-ed" onclick="saveDoctor()">Save Changes Ã¢â€ â€™</button>
+      <button class="btn btn-primary" id="btn-ed" onclick="saveDoctor()">Save Changes →</button>
     </div>
   </div>
 </div>
 
-<!-- Ã¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢Â
+<!-- ════════════════════════════════════════════
      MODAL: CABIN QR (enlarged)
-Ã¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢Â -->
+════════════════════════════════════════════ -->
 <div class="overlay" id="modal-cabin-qr">
   <div class="modal" style="text-align:center;">
     <div class="modal-header" style="justify-content:center;position:relative;">
-      <h3>Ã°Å¸â€œÂ· Cabin QR Code</h3>
-      <button class="modal-close" style="position:absolute;right:0;" onclick="closeModal('modal-cabin-qr')">Ã¢Å“â€¢</button>
+      <h3>📷 Cabin QR Code</h3>
+      <button class="modal-close" style="position:absolute;right:0;" onclick="closeModal('modal-cabin-qr')">✕</button>
     </div>
     <div class="modal-qr-name" id="m-doc-name"></div>
     <div class="modal-qr-sub" id="m-dept"></div>
     <div id="qr-render"></div>
-    <p class="modal-hint">Ã°Å¸â€œÂ· Print and place outside the cabin door</p>
+    <p class="modal-hint">📷 Print and place outside the cabin door</p>
     <div class="m-btns">
-      <button class="btn btn-primary btn-sm" onclick="printCabinQR()">Ã°Å¸â€“Â¨Ã¯Â¸Â Print</button>
+      <button class="btn btn-primary btn-sm" onclick="printCabinQR()">🖨️ Print</button>
       <button class="btn btn-ghost btn-sm" onclick="closeModal('modal-cabin-qr')">Close</button>
     </div>
   </div>
 </div>
 
-<!-- Ã¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢Â
+<!-- ════════════════════════════════════════════
      MODAL: CONFIRM DELETE
-Ã¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢Â -->
+════════════════════════════════════════════ -->
 <div class="overlay" id="modal-confirm">
   <div class="modal" style="max-width:340px;text-align:center;">
-    <div class="confirm-ico">Ã°Å¸â€˜Â¨Ã¢â‚¬ÂÃ¢Å¡â€¢Ã¯Â¸Â</div>
+    <div class="confirm-ico">👨‍⚕️</div>
     <div class="modal-header" style="justify-content:center;margin-bottom:8px;">
       <h3>Delete Doctor?</h3>
     </div>
     <p class="confirm-msg" id="confirm-msg">This cannot be undone.</p>
     <div class="confirm-btns">
       <button class="btn btn-ghost" onclick="closeModal('modal-confirm')">Cancel</button>
-      <button class="btn btn-danger" id="confirm-ok-btn" onclick="confirmDelete()">Delete Ã¢â€ â€™</button>
+      <button class="btn btn-danger" id="confirm-ok-btn" onclick="confirmDelete()">Delete →</button>
     </div>
   </div>
 </div>
@@ -516,7 +552,7 @@
   let hospitalDepartments = [];
   let pendingDeleteId = null, pendingDeleteName = '';
 
-  // Ã¢â€â‚¬Ã¢â€â‚¬ INIT Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬
+  // ── INIT ──────────────────────────────────────────
   window.onload = () => {
     // Close overlays on backdrop click
     document.querySelectorAll('.overlay').forEach(o => {
@@ -524,7 +560,7 @@
     });
   };
 
-  // Ã¢â€â‚¬Ã¢â€â‚¬ AUTH TAB SWITCH Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬
+  // ── AUTH TAB SWITCH ───────────────────────────────
   function switchAuthTab(id, btn) {
     ['t-login','t-register'].forEach(t => document.getElementById(t).style.display='none');
     document.getElementById(id).style.display = 'block';
@@ -532,7 +568,7 @@
     btn.classList.add('active');
   }
 
-  // Ã¢â€â‚¬Ã¢â€â‚¬ LOGIN Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬
+  // ── LOGIN ─────────────────────────────────────────
   async function doLogin() {
     const email = document.getElementById('l-email').value.trim();
     const pass  = document.getElementById('l-pass').value;
@@ -550,10 +586,10 @@
       hospitalName  = data.user.name;
       openDashboard();
     } catch(e) { showA('login-err','Server error. Is backend running?'); }
-    finally { btn.textContent = 'Sign In Ã¢â€ â€™'; btn.disabled = false; }
+    finally { btn.textContent = 'Sign In →'; btn.disabled = false; }
   }
 
-  // Ã¢â€â‚¬Ã¢â€â‚¬ REGISTER Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬
+  // ── REGISTER ─────────────────────────────────────
   async function doRegister() {
     const name  = document.getElementById('r-name').value.trim();
     const addr  = document.getElementById('r-addr').value.trim();
@@ -586,7 +622,7 @@
       const res  = await fetch(`${API}/auth/register/hospital`, {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(payload)});
       const data = await res.json();
       if (!res.ok) { showA('reg-err', data.message || 'Registration failed'); return; }
-      // Auto-login after registration Ã¢â‚¬â€ call login route
+      // Auto-login after registration — call login route
       const lRes  = await fetch(`${API}/auth/login/hospital`, {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({email, password:pass})});
       const lData = await lRes.json();
       if (lRes.ok) {
@@ -595,16 +631,16 @@
         hospitalName  = lData.user.name;
         openDashboard();
       } else {
-        // Registration succeeded but auto-login failed Ã¢â‚¬â€ ask user to sign in
+        // Registration succeeded but auto-login failed — ask user to sign in
         showA('reg-err','Registered! Please sign in now.');
         switchAuthTab('t-login', document.querySelectorAll('.auth-tab')[0]);
         document.getElementById('l-email').value = email;
       }
     } catch(e) { showA('reg-err','Server error. Is backend running?'); }
-    finally { btn.textContent = 'Register Hospital Ã¢â€ â€™'; btn.disabled = false; }
+    finally { btn.textContent = 'Register Hospital →'; btn.disabled = false; }
   }
 
-  // Ã¢â€â‚¬Ã¢â€â‚¬ LOGOUT Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬
+  // ── LOGOUT ────────────────────────────────────────
   function doLogout() {
     hospitalId = null; hospitalName = ''; hospitalToken = null;
     allDoctors = []; currentDoctorId = null;
@@ -615,7 +651,7 @@
     document.getElementById('auth-screen').style.display  = 'flex';
   }
 
-  // Ã¢â€â‚¬Ã¢â€â‚¬ OPEN DASHBOARD Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬
+  // ── OPEN DASHBOARD ────────────────────────────────
   function openDashboard() {
     document.getElementById('auth-screen').style.display  = 'none';
     document.getElementById('dashboard').style.display    = 'block';
@@ -627,7 +663,7 @@
     loadSettingsForm();
   }
 
-  // Ã¢â€â‚¬Ã¢â€â‚¬ PAGE SWITCHING Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬
+  // ── PAGE SWITCHING ────────────────────────────────
   function showPage(id, btn) {
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
     document.getElementById(id).classList.add('active');
@@ -637,11 +673,11 @@
     if (id === 'p-settings')  loadSettingsForm();
   }
 
-  // Ã¢â€â‚¬Ã¢â€â‚¬ MODAL CONTROL Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬
+  // ── MODAL CONTROL ─────────────────────────────────
   function openModal(id)  { document.getElementById(id).classList.add('show'); }
   function closeModal(id) { document.getElementById(id).classList.remove('show'); }
 
-  // Ã¢â€â‚¬Ã¢â€â‚¬ SOCKET Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬
+  // ── SOCKET ────────────────────────────────────────
   function initSocket() {
     socket = io('http://localhost:5000');
     socket.on('connect', () => console.log('Socket connected'));
@@ -657,7 +693,7 @@
     });
   }
 
-  // Ã¢â€â‚¬Ã¢â€â‚¬ DOCTORS Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬
+  // ── DOCTORS ───────────────────────────────────────
   async function loadDoctors() {
     if (!hospitalId) return;
     try {
@@ -673,14 +709,14 @@
   function renderDoctorsTable(docs) {
     const tbody = document.getElementById('doc-tbl-body');
     if (!docs.length) {
-      tbody.innerHTML = `<tr><td colspan="4"><div class="empty"><div class="e-ico">Ã°Å¸Â©Âº</div><p>No doctors added yet. Add your first doctor!</p></div></td></tr>`;
+      tbody.innerHTML = `<tr><td colspan="4"><div class="empty"><div class="e-ico">🩺</div><p>No doctors added yet. Add your first doctor!</p></div></td></tr>`;
       return;
     }
     tbody.innerHTML = docs.map(d => `
       <tr>
         <td>
           <div style="display:flex;align-items:center;gap:10px;">
-            <div style="width:32px;height:32px;background:var(--primary-lt);border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:14px;">Ã°Å¸â€˜Â¨Ã¢â‚¬ÂÃ¢Å¡â€¢Ã¯Â¸Â</div>
+            <div style="width:32px;height:32px;background:var(--primary-lt);border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:14px;">👨‍⚕️</div>
             <strong>${d.name}</strong>
           </div>
         </td>
@@ -688,9 +724,9 @@
         <td style="color:var(--muted);">~${d.avgConsultationTime} min</td>
         <td>
           <div style="display:flex;gap:6px;">
-            <button class="btn btn-outline btn-sm" onclick="openCabinQRForDoctor('${d._id}','${escQ(d.name)}','${escQ(d.department)}')">Ã°Å¸â€œÂ· QR</button>
-            <button class="btn btn-ghost btn-sm" onclick="editDoctor('${d._id}','${escQ(d.name)}','${escQ(d.department)}','${d.avgConsultationTime}')">Ã¢Å“ÂÃ¯Â¸Â Edit</button>
-            <button class="btn btn-danger btn-sm" onclick="confirmDeleteDoctor('${d._id}','${escQ(d.name)}')">Ã°Å¸â€”â€˜</button>
+            <button class="btn btn-outline btn-sm" onclick="openCabinQRForDoctor('${d._id}','${escQ(d.name)}','${escQ(d.department)}')">📷 QR</button>
+            <button class="btn btn-ghost btn-sm" onclick="editDoctor('${d._id}','${escQ(d.name)}','${escQ(d.department)}','${d.avgConsultationTime}')">✏️ Edit</button>
+            <button class="btn btn-danger btn-sm" onclick="confirmDeleteDoctor('${d._id}','${escQ(d.name)}')">🗑</button>
           </div>
         </td>
       </tr>`).join('');
@@ -699,10 +735,10 @@
   function populateQueueSel(docs) {
     const sel = document.getElementById('q-doc-sel');
     sel.innerHTML = '<option value="">-- Select doctor --</option>';
-    docs.forEach(d => sel.innerHTML += `<option value="${d._id}">${d.name} Ã¢â‚¬â€ ${d.department}</option>`);
+    docs.forEach(d => sel.innerHTML += `<option value="${d._id}">${d.name} — ${d.department}</option>`);
   }
 
-  // Ã¢â€â‚¬Ã¢â€â‚¬ ADD DOCTOR Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬
+  // ── ADD DOCTOR ────────────────────────────────────
   async function addDoctor() {
     const name = document.getElementById('d-name').value.trim();
     const dept = document.getElementById('d-dept').value.trim();
@@ -715,7 +751,7 @@
       const res  = await fetch(`${API}/doctors`, {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({name, hospital:hospitalId, department:dept, avgConsultationTime:parseInt(time)||10})});
       const data = await res.json();
       if (!res.ok) { showA('doc-err', data.message); return; }
-      showA('doc-ok', `Ã¢Å“â€¦ Dr. ${name} added!`);
+      showA('doc-ok', `✅ Dr. ${name} added!`);
       document.getElementById('d-name').value = '';
       document.getElementById('d-dept').value = '';
       document.getElementById('d-time').value = '10';
@@ -723,10 +759,10 @@
       loadDoctors();
       setTimeout(() => closeModal('modal-add-doctor'), 1200);
     } catch(e) { showA('doc-err','Failed to add doctor'); }
-    finally { btn.textContent = 'Add Doctor Ã¢â€ â€™'; btn.disabled = false; }
+    finally { btn.textContent = 'Add Doctor →'; btn.disabled = false; }
   }
 
-  // Ã¢â€â‚¬Ã¢â€â‚¬ EDIT DOCTOR Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬
+  // ── EDIT DOCTOR ───────────────────────────────────
   function editDoctor(id, name, dept, time) {
     document.getElementById('ed-id').value   = id;
     document.getElementById('ed-name').value = name;
@@ -763,10 +799,10 @@
       closeModal('modal-edit-doctor');
       loadDoctors();
     } catch(e) { showA('ed-err','Server error.'); }
-    finally { btn.textContent = 'Save Changes Ã¢â€ â€™'; btn.disabled = false; }
+    finally { btn.textContent = 'Save Changes →'; btn.disabled = false; }
   }
 
-  // Ã¢â€â‚¬Ã¢â€â‚¬ DELETE DOCTOR Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬
+  // ── DELETE DOCTOR ─────────────────────────────────
   function confirmDeleteDoctor(id, name) {
     pendingDeleteId   = id;
     pendingDeleteName = name;
@@ -784,10 +820,10 @@
       closeModal('modal-confirm');
       loadDoctors();
     } catch(e) { toast('Server error'); }
-    finally { btn.textContent = 'Delete Ã¢â€ â€™'; btn.disabled = false; }
+    finally { btn.textContent = 'Delete →'; btn.disabled = false; }
   }
 
-  // Ã¢â€â‚¬Ã¢â€â‚¬ QUEUE Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬
+  // ── QUEUE ─────────────────────────────────────────
   async function loadQueue() {
     const id = document.getElementById('q-doc-sel').value;
     if (!id) return;
@@ -809,7 +845,7 @@
     btn.disabled = true; btn.textContent = 'Loading...';
     try { await fetch(`${API}/queue/${currentDoctorId}/next`, {method:'POST', headers:{'Content-Type':'application/json'}}); }
     catch(e) { console.error(e); }
-    btn.disabled = false; btn.textContent = 'Call Next Patient Ã¢â€ â€™';
+    btn.disabled = false; btn.textContent = 'Call Next Patient →';
   }
 
   function setToken(num, name) {
@@ -826,7 +862,7 @@
     const empty = document.getElementById('q-empty');
     const wrap  = document.getElementById('q-table');
     tbody.innerHTML = '';
-    if (!queue.length) { wrap.style.display='none'; empty.style.display='block'; empty.innerHTML='<div class="e-ico">Ã°Å¸Âªâ€˜</div><p>No patients waiting</p>'; return; }
+    if (!queue.length) { wrap.style.display='none'; empty.style.display='block'; empty.innerHTML='<div class="e-ico">🪑</div><p>No patients waiting</p>'; return; }
     wrap.style.display='block'; empty.style.display='none';
     queue.forEach(item => {
       tbody.innerHTML += `<tr>
@@ -839,7 +875,7 @@
     });
   }
 
-  // Ã¢â€â‚¬Ã¢â€â‚¬ CABIN QR (Doctor) Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬
+  // ── CABIN QR (Doctor) ─────────────────────────────
   function generateCabinQR(doctorId) {
     const el = document.getElementById('qr-inline');
     el.innerHTML = '';
@@ -855,7 +891,7 @@
 
   function openCabinQRForDoctor(doctorId, name, dept) {
     document.getElementById('m-doc-name').textContent = name;
-    document.getElementById('m-dept').textContent     = `${dept} Ã‚Â· ${hospitalName}`;
+    document.getElementById('m-dept').textContent     = `${dept} · ${hospitalName}`;
     const el = document.getElementById('qr-render');
     el.innerHTML = '';
     new QRCode(el, { text:`mediqueue://book?doctorId=${doctorId}&hospitalId=${hospitalId}`, width:180, height:180, colorDark:'#0F172A', colorLight:'#FFFFFF', correctLevel:QRCode.CorrectLevel.H });
@@ -877,7 +913,7 @@
     win.print();
   }
 
-  // Ã¢â€â‚¬Ã¢â€â‚¬ RECEPTION QR (Hospital) Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬
+  // ── RECEPTION QR (Hospital) ───────────────────────
   async function loadReceptionQR() {
     try {
       const res  = await fetch(`${API}/hospitals/${hospitalId}/reception-qr`);
@@ -925,7 +961,7 @@
     win.print();
   }
 
-  // Ã¢â€â‚¬Ã¢â€â‚¬ SETTINGS Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬
+  // ── SETTINGS ─────────────────────────────────────
   async function loadSettingsForm() {
     if (!hospitalId) return;
     hideA('set-err'); hideA('set-ok');
@@ -971,66 +1007,87 @@
       hospitalDepartments = depts;
       document.getElementById('h-name-badge').textContent = hospitalName;
       populateDeptDropdowns();
-      showA('set-ok','Ã¢Å“â€¦ Settings saved!');
+      showA('set-ok','✅ Settings saved!');
       toast('Hospital profile updated');
     } catch(e) { showA('set-err','Server error.'); }
-    finally { btn.textContent = 'Save Changes Ã¢â€ â€™'; btn.disabled = false; }
+    finally { btn.textContent = 'Save Changes →'; btn.disabled = false; }
   }
 
-  // Ã¢â€â‚¬Ã¢â€â‚¬ HELPERS Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬
+  // ── HELPERS ───────────────────────────────────────
+  // ── LOCATION PICKER ───────────────────────────────
   let registerHospitalSearchTimer;
-  async function handleRegisterHospitalSearch(query) {
-    const resultsContainer = document.getElementById('registerSearchResults');
-    const selectedText = document.getElementById('registerSelectedLocationText');
-    clearTimeout(registerHospitalSearchTimer);
+  function closeRegLocDropdown() {
+    document.getElementById('registerSearchResults').classList.remove('open');
+  }
+  function clearRegLocPicker() {
+    document.getElementById('registerHospitalSearch').value = '';
     document.getElementById('r-addr').value = '';
     document.getElementById('registerHospitalLat').value = '';
     document.getElementById('registerHospitalLon').value = '';
     document.getElementById('registerHospitalAddress').value = '';
-    selectedText.textContent = '';
+    document.getElementById('registerSearchResults').innerHTML = '';
+    document.getElementById('registerSearchResults').classList.remove('open');
+    document.getElementById('reg-hosp-confirmed').classList.remove('show');
+    document.getElementById('registerHospitalSearch').classList.remove('loc-selected');
+  }
+  async function handleRegisterHospitalSearch(query) {
+    const dd      = document.getElementById('registerSearchResults');
+    const spinner = document.getElementById('reg-hosp-spinner');
+    clearTimeout(registerHospitalSearchTimer);
+    // Reset hidden fields & confirmed chip
+    ['r-addr','registerHospitalLat','registerHospitalLon','registerHospitalAddress'].forEach(id => {
+      document.getElementById(id).value = '';
+    });
+    document.getElementById('reg-hosp-confirmed').classList.remove('show');
+    document.getElementById('registerHospitalSearch').classList.remove('loc-selected');
 
-    if (query.trim().length < 3) {
-      resultsContainer.innerHTML = '';
-      return;
-    }
+    if (query.trim().length < 3) { dd.innerHTML = ''; dd.classList.remove('open'); return; }
 
-    resultsContainer.innerHTML = "<li style='padding: 10px; color: gray; font-size: 13px;'>Searching hospitals...</li>";
+    dd.innerHTML = '<div class="loc-item-msg">🔍 Searching…</div>';
+    dd.classList.add('open');
+    spinner.style.display = 'block';
+
     registerHospitalSearchTimer = setTimeout(async () => {
-      const email = "contact@mediqueue.com";
-      const url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(query)}&format=json&limit=5&email=${email}`;
       try {
-        const response = await fetch(url);
-        if (!response.ok) throw new Error('Search failed');
-        const data = await response.json();
-        resultsContainer.innerHTML = '';
+        const url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(query)}&format=json&limit=6&addressdetails=1&email=contact@mediqueue.com`;
+        const res  = await fetch(url);
+        if (!res.ok) throw new Error('Network error');
+        const data = await res.json();
+        spinner.style.display = 'none';
+        dd.innerHTML = '';
         if (!data.length) {
-          resultsContainer.innerHTML = "<li style='padding: 10px; color: red; font-size: 13px;'>No hospitals found.</li>";
+          dd.innerHTML = '<div class="loc-item-msg" style="color:var(--danger);">No results found. Try a different name.</div>';
           return;
         }
         data.forEach(place => {
-          const li = document.createElement('li');
-          li.style.cssText = "padding: 10px; border-bottom: 1px solid #eee; cursor: pointer; background: white; transition: 0.2s;";
-          li.onmouseover = () => li.style.background = "#f0f8ff";
-          li.onmouseout = () => li.style.background = "white";
-          li.innerHTML = `<strong style="color: #333; font-size: 14px;">${place.name || query}</strong><br><span style='font-size: 0.8em; color: #666;'>${place.display_name}</span>`;
-          li.onclick = () => {
-            document.getElementById('registerHospitalSearch').value = place.name || place.display_name.split(',')[0];
-            document.getElementById('r-addr').value = place.display_name;
+          const shortName = place.name || place.display_name.split(',')[0];
+          const addr      = place.display_name;
+          const div = document.createElement('div');
+          div.className = 'loc-item';
+          div.innerHTML = `<div class="loc-item-name">${shortName}</div><div class="loc-item-addr">${addr}</div>`;
+          div.onclick = () => {
+            document.getElementById('registerHospitalSearch').value = shortName;
+            document.getElementById('r-addr').value = addr;
             document.getElementById('registerHospitalLat').value = place.lat;
             document.getElementById('registerHospitalLon').value = place.lon;
-            document.getElementById('registerHospitalAddress').value = place.display_name;
-            selectedText.textContent = `Locked: ${parseFloat(place.lat).toFixed(4)}, ${parseFloat(place.lon).toFixed(4)}`;
-            resultsContainer.innerHTML = '';
+            document.getElementById('registerHospitalAddress').value = addr;
+            document.getElementById('registerHospitalSearch').classList.add('loc-selected');
+            const lat = parseFloat(place.lat).toFixed(5);
+            const lon = parseFloat(place.lon).toFixed(5);
+            document.getElementById('reg-hosp-coords-text').textContent = `${shortName} · ${lat}, ${lon}`;
+            document.getElementById('reg-hosp-confirmed').classList.add('show');
+            dd.classList.remove('open');
+            dd.innerHTML = '';
           };
-          resultsContainer.appendChild(li);
+          dd.appendChild(div);
         });
-      } catch (error) {
-        console.error('Hospital search failed:', error);
-        resultsContainer.innerHTML = "<li style='padding: 10px; color: red; font-size: 13px;'>Network error.</li>";
+      } catch(e) {
+        spinner.style.display = 'none';
+        dd.innerHTML = '<div class="loc-item-msg" style="color:var(--danger);">⚠ Network error. Try again.</div>';
       }
     }, 400);
   }
-  function showA(id, msg) { const el=document.getElementById(id); el.style.display='flex'; document.getElementById(`${id}-msg`).textContent=msg; }
+    function showA(id, msg) { const el=document.getElementById(id); el.style.display='flex'; document.getElementById(`${id}-msg`).textContent=msg; }
   function hideA(id)      { document.getElementById(id).style.display='none'; }
   function toast(msg)     { const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),3000); }
   function escQ(str)      { return String(str||'').replace(/'/g,"\\'").replace(/"/g,"&quot;"); }

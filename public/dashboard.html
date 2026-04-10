@@ -926,54 +926,94 @@
 </script>
 
 <script>
-  async function searchHospital() {
-    const query = document.getElementById('hospitalSearch').value;
-    const resultsContainer = document.getElementById('searchResults');
-    
-    if (!query) {
-      alert("Please enter a hospital name to search.");
-      return;
-    }
+  let typingTimer; // The timer for debouncing
+  const waitTime = 600; // Wait 600 milliseconds after they stop typing
 
-    resultsContainer.innerHTML = "<li style='font-size:12px; color:var(--muted);'>Searching...</li>";
+  // 1. Listen for every keystroke in the input box
+  const searchInput = document.getElementById('hospitalSearch');
+  if (searchInput) {
+    searchInput.addEventListener('input', function(e) {
+      const query = e.target.value;
+      const resultsContainer = document.getElementById('searchResults');
 
-    const email = "contact@mediqueue.com"; 
-    const url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(query + ' Bengaluru')}&format=json&limit=3&email=${email}`;
+      // Clear the previous timer so we don't spam the API
+      clearTimeout(typingTimer);
 
-    try {
-      const response = await fetch(url);
-      const data = await response.json();
-
-      resultsContainer.innerHTML = ""; 
-
-      if (data.length === 0) {
-        resultsContainer.innerHTML = "<li style='color: var(--danger); font-size:12px;'>No results found. Try a different name.</li>";
+      // If they clear the box or type less than 3 letters, empty the list
+      if (query.length < 3) {
+        resultsContainer.innerHTML = "";
         return;
       }
 
+      resultsContainer.innerHTML = "<li style='padding: 8px; color: gray;'>Searching...</li>";
+
+      // 2. Start a new timer. It only runs searchHospital() if they stop typing!
+      typingTimer = setTimeout(() => {
+        searchHospital(query);
+      }, waitTime);
+    });
+  }
+
+  // 3. The actual search function (mostly the same as before)
+  async function searchHospital(query) {
+    const resultsContainer = document.getElementById('searchResults');
+    
+    // CRITICAL: Keep your email here so Nominatim doesn't block you!
+    const email = "contact@mediqueue.com"; 
+    const url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(query + ' Bengaluru')}&format=json&limit=4&email=${email}`;
+
+    try {
+      const response = await fetch(url, {
+        headers: {
+          'User-Agent': 'MediQueue_Hackathon_SVIT/1.0'
+        }
+      });
+      const data = await response.json();
+
+      resultsContainer.innerHTML = ""; // Clear loading text
+
+      if (data.length === 0) {
+        resultsContainer.innerHTML = "<li style='padding: 8px; color: red;'>No hospitals found.</li>";
+        return;
+      }
+
+      // Display the results as clickable list items
       data.forEach(place => {
         const li = document.createElement('li');
-        li.style.cssText = "padding: 8px; border: 1px solid var(--border); margin-bottom: 5px; cursor: pointer; background: var(--bg); border-radius: 8px; font-size: 12px;";
-        li.innerHTML = `<strong>${place.name || 'Hospital'}</strong><br><span style='font-size: 11px; color: var(--muted);'>${place.display_name}</span>`;
+        li.style.cssText = "padding: 10px; border: 1px solid #eee; border-radius: 4px; margin-bottom: 5px; cursor: pointer; background: #fff; transition: 0.2s;";
         
-        li.onclick = () => selectLocation(place);
+        // Add a hover effect for better UI
+        li.onmouseover = () => li.style.background = "#f0f8ff";
+        li.onmouseout = () => li.style.background = "#fff";
+
+        li.innerHTML = `<strong style="color: #333;">${place.name || 'Hospital/Clinic'}</strong><br><span style='font-size: 0.8em; color: #666;'>${place.display_name}</span>`;
+        
+        // When clicked, save the location
+        li.onclick = () => selectLocation(place, document.getElementById('hospitalSearch'));
         resultsContainer.appendChild(li);
       });
+
     } catch (error) {
       console.error("Search failed:", error);
-      resultsContainer.innerHTML = "<li style='color: var(--danger); font-size:12px;'>Failed to connect to map server.</li>";
+      resultsContainer.innerHTML = "<li style='padding: 8px; color: red;'>Network error. Check console.</li>";
     }
   }
 
-  function selectLocation(place) {
+  // 4. Handle the selection
+  function selectLocation(place, searchInput) {
+    // Fill the hidden inputs so they submit with your form
     document.getElementById('hospitalLat').value = place.lat;
     document.getElementById('hospitalLon').value = place.lon;
     document.getElementById('hospitalAddress').value = place.display_name;
 
-    document.getElementById('selectedLocationText').innerText = `✅ Selected: ${place.name || 'Location Saved'} (Lat: ${parseFloat(place.lat).toFixed(4)}, Lon: ${parseFloat(place.lon).toFixed(4)})`;
+    // Put the selected name back into the search box so it looks clean
+    searchInput.value = place.name || place.display_name.split(',')[0];
+
+    // Show a success message
+    document.getElementById('selectedLocationText').innerHTML = `✅ Location Locked: <strong>${parseFloat(place.lat).toFixed(4)}, ${parseFloat(place.lon).toFixed(4)}</strong>`;
     
+    // Hide the dropdown list
     document.getElementById('searchResults').innerHTML = "";
-    document.getElementById('hospitalSearch').value = place.name || '';
   }
 </script>
 </body>

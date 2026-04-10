@@ -45,6 +45,7 @@ app.use('/api/doctors',      require('./src/routes/doctors'));
 app.use('/api/appointments', require('./src/routes/appointments'));
 app.use('/api/queue',        require('./src/routes/queue'));
 app.use('/api/ai', require('./src/routes/ai'));
+app.use('/api/emergency', require('./src/routes/emergency'));
 
 // Make io accessible in routes
 app.set('io', io);

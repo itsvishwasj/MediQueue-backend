@@ -6,8 +6,8 @@ const Doctor = require('../models/Doctor');
 // POST /api/hospitals
 router.post('/', async (req, res) => {
   try {
-    const { name, address, departments } = req.body;
-    const hospital = new Hospital({ name, address, departments });
+    const { name, address, departments, location, fullAddress } = req.body;
+    const hospital = new Hospital({ name, address, departments, location, fullAddress });
     await hospital.save();
     res.status(201).json(hospital);
   } catch (err) {
@@ -50,12 +50,14 @@ router.get('/:id/departments', async (req, res) => {
 // PUT /api/hospitals/:id - Edit hospital profile
 router.put('/:id', async (req, res) => {
   try {
-    const { name, address, departments } = req.body;
+    const { name, address, departments, location, fullAddress } = req.body;
     const update = {};
     if (name) update.name = name;
     if (address) update.address = address;
     if (departments) update.departments = Array.isArray(departments) 
         ? departments : departments.split(',').map(d => d.trim()).filter(Boolean);
+    if (location) update.location = location;
+    if (fullAddress) update.fullAddress = fullAddress;
  
     const hospital = await Hospital.findByIdAndUpdate(
       req.params.id, { $set: update }, { new: true }

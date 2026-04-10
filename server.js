@@ -18,8 +18,13 @@ connectDB();
 // Middleware
 app.use(cors());
 app.use(express.json());
-// Serve admin dashboard
-app.use(express.static('public'));
+app.use(express.static('public', {
+  setHeaders: (res, path) => {
+    if (path.endsWith('.html')) {
+      res.setHeader('Content-Type', 'text/html; charset=utf-8');
+    }
+  }
+}));
 
 // Routes (we'll fill these in coming steps)
 app.use('/api/auth',         require('./src/routes/auth'));

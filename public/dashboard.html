@@ -374,11 +374,10 @@
     <div id="h-err" class="alert alert-error" style="display:none;"><span id="h-err-msg"></span></div>
     <div id="h-ok"  class="alert alert-success" style="display:none;"><span id="h-ok-msg"></span></div>
     <div class="fg"><label>Hospital Name *</label><input id="hosp-name" placeholder="e.g. Apollo Clinic"/></div>
-    <div class="fg"><label>Google Maps Link *</label><input id="hosp-addr" placeholder="Paste the hospital Google Maps link"/></div>
+    <div class="fg"><label>Location *</label><input id="hosp-addr" placeholder='enter full name ("Apollo clinic")'/></div>
     <div class="fg"><label>Departments <span style="font-weight:400;color:var(--muted);">(comma separated)</span></label><input id="hosp-depts" placeholder="Cardiology, General, Pediatrics"/></div>
-    <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:4px;">
-      <button class="btn btn-ghost" onclick="closeModal('modal-add-hospital')">Cancel</button>
-      <button class="btn btn-primary" id="btn-hosp" onclick="addHospital()">Create Hospital â†’</button>
+    <div style="display:flex;justify-content:flex-end;margin-top:4px;">
+      <button class="btn btn-primary" id="btn-hosp" onclick="addHospital()">Register Hospital â†’</button>
     </div>
   </div>
 </div>
@@ -641,7 +640,7 @@
       loadOverview();
       setTimeout(() => closeModal('modal-add-hospital'), 1200);
     } catch(e) { showA('h-err', 'Server error. Is backend running?'); }
-    finally { btn.textContent = 'Create Hospital â†’'; btn.disabled = false; }
+    finally { btn.textContent = 'Register Hospital â†’'; btn.disabled = false; }
   }
   
   function updateDocDeptOptions() {

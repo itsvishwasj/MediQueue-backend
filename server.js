@@ -34,7 +34,7 @@ app.get('/', (req, res) => {
 });
 
 // Health check
-app.get('/', (req, res) => res.json({ message: 'MediQueue API running' }));
+app.get('/health', (req, res) => res.json({ message: 'MediQueue API running' }));
 
 // Make io accessible in routes
 app.set('io', io);

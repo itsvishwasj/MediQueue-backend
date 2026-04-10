@@ -375,18 +375,94 @@
     <div id="h-ok"  class="alert alert-success" style="display:none;"><span id="h-ok-msg"></span></div>
     <div class="fg"><label>Hospital Name *</label><input id="hosp-name" placeholder="e.g. Apollo Clinic"/></div>
     <div class="fg"><label>Address / Location *</label><input id="hosp-addr" placeholder="e.g. Koramangala, Bengaluru"/></div>
-    <div class="location-picker" style="margin-bottom: 20px;">
-      <label for="hospitalSearch" style="display:block;font-size:12px;font-weight:700;color:var(--mid);margin-bottom:6px;">Find Hospital Coordinates:</label>
-      <div style="display: flex; gap: 10px;">
-        <input type="text" id="hospitalSearch" placeholder="e.g., Sai Vidya Institute Bengaluru" style="flex: 1; padding: 10px 13px; border: 1.5px solid rgba(37,99,235,0.12); border-radius: 10px; font-family: 'DM Sans', sans-serif; font-size: 13px;">
-        <button type="button" onclick="searchHospital()" class="btn btn-primary">Search</button>
-      </div>
-      <ul id="searchResults" style="list-style-type: none; padding: 0; margin-top: 10px; max-height: 150px; overflow-y: auto;"></ul>
+    <div class="location-picker" style="margin-bottom: 20px; background: #f8f9fa; padding: 15px; border-radius: 8px;">
+      <label for="hospitalSearch" style="font-weight: bold;">Find Hospital Location:</label>
+      
+      <input type="text" id="hospitalSearch" autocomplete="off" placeholder="Type at least 3 letters (e.g., Apollo)" style="width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #ccc; border-radius: 4px;">
+      
+      <ul id="searchResults" style="list-style-type: none; padding: 0; margin: 0; max-height: 200px; overflow-y: auto; background: white; border-radius: 4px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);"></ul>
+
       <input type="hidden" id="hospitalLat" name="latitude">
       <input type="hidden" id="hospitalLon" name="longitude">
       <input type="hidden" id="hospitalAddress" name="fullAddress">
-      <p id="selectedLocationText" style="color: var(--success); font-size: 12px; margin-top: 5px; font-weight: 600;"></p>
+      
+      <p id="selectedLocationText" style="color: green; font-size: 0.9em; margin-top: 10px;"></p>
     </div>
+
+    <script>
+      let typingTimer;
+
+      document.getElementById('hospitalSearch').addEventListener('input', function(e) {
+        const query = e.target.value;
+        const resultsContainer = document.getElementById('searchResults');
+        
+        // DEBUG 1: Is the typing even being detected?
+        console.log("Typing detected:", query);
+
+        clearTimeout(typingTimer);
+
+        if (query.length < 3) {
+          resultsContainer.innerHTML = "";
+          return;
+        }
+
+        resultsContainer.innerHTML = "<li style='padding: 10px; color: gray;'>Searching OpenStreetMap...</li>";
+
+        typingTimer = setTimeout(() => {
+          searchHospital(query);
+        }, 800); // Wait 800ms to be extra safe
+      });
+
+      async function searchHospital(query) {
+        const resultsContainer = document.getElementById('searchResults');
+        const email = "contact@mediqueue.com"; 
+        const url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(query + ' Bengaluru')}&format=json&limit=4&email=${email}`;
+        
+        // DEBUG 2: Is the URL formatting correctly?
+        console.log("Fetching URL:", url);
+
+        try {
+          const response = await fetch(url, {
+            headers: { 'User-Agent': 'MediQueue_SVIT_Hackathon/1.0' }
+          });
+          
+          // DEBUG 3: What is the server responding with?
+          console.log("Response Status:", response.status);
+
+          if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+          
+          const data = await response.json();
+          console.log("Data received:", data); // DEBUG 4: Did we get data?
+
+          resultsContainer.innerHTML = ""; 
+
+          if (data.length === 0) {
+            resultsContainer.innerHTML = "<li style='padding: 10px; color: red;'>No hospitals found in Bengaluru.</li>";
+            return;
+          }
+
+          data.forEach(place => {
+            const li = document.createElement('li');
+            li.style.cssText = "padding: 10px; border-bottom: 1px solid #eee; cursor: pointer;";
+            li.innerHTML = `<strong>${place.name || 'Hospital'}</strong><br><span style='font-size: 0.8em; color: #666;'>${place.display_name}</span>`;
+            
+            li.onclick = () => {
+              document.getElementById('hospitalLat').value = place.lat;
+              document.getElementById('hospitalLon').value = place.lon;
+              document.getElementById('hospitalAddress').value = place.display_name;
+              document.getElementById('hospitalSearch').value = place.name || place.display_name.split(',')[0];
+              document.getElementById('selectedLocationText').innerHTML = `✅ Location Saved: ${parseFloat(place.lat).toFixed(4)}, ${parseFloat(place.lon).toFixed(4)}`;
+              resultsContainer.innerHTML = "";
+            };
+            resultsContainer.appendChild(li);
+          });
+
+        } catch (error) {
+          console.error("Search failed entirely:", error);
+          resultsContainer.innerHTML = `<li style='padding: 10px; color: red;'>Error: Check console (F12).</li>`;
+        }
+      }
+    </script>
     <div class="fg"><label>Departments <span style="font-weight:400;color:var(--muted);">(comma separated)</span></label><input id="hosp-depts" placeholder="Cardiology, General, Pediatrics"/></div>
     <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:4px;">
       <button class="btn btn-ghost" onclick="closeModal('modal-add-hospital')">Cancel</button>
@@ -925,96 +1001,5 @@
   function escQ(str) { return String(str||'').replace(/'/g,"\\'").replace(/"/g,"&quot;"); }
 </script>
 
-<script>
-  let typingTimer; // The timer for debouncing
-  const waitTime = 600; // Wait 600 milliseconds after they stop typing
-
-  // 1. Listen for every keystroke in the input box
-  const searchInput = document.getElementById('hospitalSearch');
-  if (searchInput) {
-    searchInput.addEventListener('input', function(e) {
-      const query = e.target.value;
-      const resultsContainer = document.getElementById('searchResults');
-
-      // Clear the previous timer so we don't spam the API
-      clearTimeout(typingTimer);
-
-      // If they clear the box or type less than 3 letters, empty the list
-      if (query.length < 3) {
-        resultsContainer.innerHTML = "";
-        return;
-      }
-
-      resultsContainer.innerHTML = "<li style='padding: 8px; color: gray;'>Searching...</li>";
-
-      // 2. Start a new timer. It only runs searchHospital() if they stop typing!
-      typingTimer = setTimeout(() => {
-        searchHospital(query);
-      }, waitTime);
-    });
-  }
-
-  // 3. The actual search function (mostly the same as before)
-  async function searchHospital(query) {
-    const resultsContainer = document.getElementById('searchResults');
-    
-    // CRITICAL: Keep your email here so Nominatim doesn't block you!
-    const email = "contact@mediqueue.com"; 
-    const url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(query + ' Bengaluru')}&format=json&limit=4&email=${email}`;
-
-    try {
-      const response = await fetch(url, {
-        headers: {
-          'User-Agent': 'MediQueue_Hackathon_SVIT/1.0'
-        }
-      });
-      const data = await response.json();
-
-      resultsContainer.innerHTML = ""; // Clear loading text
-
-      if (data.length === 0) {
-        resultsContainer.innerHTML = "<li style='padding: 8px; color: red;'>No hospitals found.</li>";
-        return;
-      }
-
-      // Display the results as clickable list items
-      data.forEach(place => {
-        const li = document.createElement('li');
-        li.style.cssText = "padding: 10px; border: 1px solid #eee; border-radius: 4px; margin-bottom: 5px; cursor: pointer; background: #fff; transition: 0.2s;";
-        
-        // Add a hover effect for better UI
-        li.onmouseover = () => li.style.background = "#f0f8ff";
-        li.onmouseout = () => li.style.background = "#fff";
-
-        li.innerHTML = `<strong style="color: #333;">${place.name || 'Hospital/Clinic'}</strong><br><span style='font-size: 0.8em; color: #666;'>${place.display_name}</span>`;
-        
-        // When clicked, save the location
-        li.onclick = () => selectLocation(place, document.getElementById('hospitalSearch'));
-        resultsContainer.appendChild(li);
-      });
-
-    } catch (error) {
-      console.error("Search failed:", error);
-      resultsContainer.innerHTML = "<li style='padding: 8px; color: red;'>Network error. Check console.</li>";
-    }
-  }
-
-  // 4. Handle the selection
-  function selectLocation(place, searchInput) {
-    // Fill the hidden inputs so they submit with your form
-    document.getElementById('hospitalLat').value = place.lat;
-    document.getElementById('hospitalLon').value = place.lon;
-    document.getElementById('hospitalAddress').value = place.display_name;
-
-    // Put the selected name back into the search box so it looks clean
-    searchInput.value = place.name || place.display_name.split(',')[0];
-
-    // Show a success message
-    document.getElementById('selectedLocationText').innerHTML = `✅ Location Locked: <strong>${parseFloat(place.lat).toFixed(4)}, ${parseFloat(place.lon).toFixed(4)}</strong>`;
-    
-    // Hide the dropdown list
-    document.getElementById('searchResults').innerHTML = "";
-  }
-</script>
 </body>
 </html>

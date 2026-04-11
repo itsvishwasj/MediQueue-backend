@@ -92,4 +92,31 @@ router.get('/:id/reception-qr', async (req, res) => {
   }
 });
 
+// GET /api/hospitals/:id/cabin-qr/:doctorId - Gen Doctor-level QR
+router.get('/:id/cabin-qr/:doctorId', async (req, res) => {
+  try {
+    const hospital = await Hospital.findById(req.params.id);
+    if (!hospital) return res.status(404).json({ message: 'Hospital not found' });
+    
+    // Optional: check if doctor exists, though just generating the payload is often enough
+    const doctor = await Doctor.findById(req.params.doctorId);
+    if (!doctor) return res.status(404).json({ message: 'Doctor not found' });
+
+    const payload = `mediqueue://book?doctorId=${req.params.doctorId}&hospitalId=${req.params.id}`;
+    const qrDataUrl = await QRCode.toDataURL(payload, {
+      width: 400, margin: 2, color: { dark: '#0F172A', light: '#FFFFFF' }
+    });
+
+    res.json({
+      doctorId: req.params.doctorId,
+      hospitalId: req.params.id,
+      doctorName: doctor.name,
+      payload,
+      qrDataUrl
+    });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
 module.exports = router;

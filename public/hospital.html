@@ -875,22 +875,17 @@
   }
 
   // ── CABIN QR (Doctor) ─────────────────────────────
-  async function generateCabinQR(doctorId) {
+  function generateCabinQR(doctorId) {
     const el = document.getElementById('qr-inline');
     el.innerHTML = '';
     if (!doctorId) return;
     const qrHospitalId = hospitalId || DEMO_HOSPITAL_ID;
+    const payload = `mediqueue://book?doctorId=${doctorId}&hospitalId=${qrHospitalId}`;
     try {
-      const res = await fetch(`${API}/hospitals/${qrHospitalId}/cabin-qr/${doctorId}`, { cache: 'no-store' });
-      const data = await res.json();
-      if (!res.ok || !data?.qrDataUrl) throw new Error(data?.message || 'Failed to generate cabin QR');
-      const img = document.createElement('img');
-      img.src = data.qrDataUrl;
-      img.style.cssText = 'width:120px;height:120px;border-radius:8px;';
-      el.appendChild(img);
-    } catch (e) {
-      el.innerHTML = `<p style="font-size:11px;color:var(--muted);word-break:break-all;">mediqueue://book?doctorId=${doctorId}&hospitalId=${qrHospitalId}</p>`;
-      console.error('Cabin QR render failed:', e);
+      new QRCode(el, { text: payload, width: 120, height: 120, colorDark: '#0F172A', colorLight: '#F0F4FF', correctLevel: QRCode.CorrectLevel.H });
+      setTimeout(() => { const c = el.querySelector('canvas'); if(c) c.style.display='none'; }, 50);
+    } catch(e) {
+      el.innerHTML = `<p style="font-size:11px;color:var(--muted);word-break:break-all;">${payload}</p>`;
     }
   }
 
@@ -900,23 +895,18 @@
     openCabinQRForDoctor(currentDoctorId, doc?.name||'Doctor', doc?.department||'');
   }
 
-  async function openCabinQRForDoctor(doctorId, name, dept) {
+  function openCabinQRForDoctor(doctorId, name, dept) {
     document.getElementById('m-doc-name').textContent = name;
     document.getElementById('m-dept').textContent     = `${dept} · ${hospitalName}`;
     const el = document.getElementById('qr-render');
     el.innerHTML = '';
     const qrHospitalId = hospitalId || DEMO_HOSPITAL_ID;
+    const payload = `mediqueue://book?doctorId=${doctorId}&hospitalId=${qrHospitalId}`;
     try {
-      const res = await fetch(`${API}/hospitals/${qrHospitalId}/cabin-qr/${doctorId}`, { cache: 'no-store' });
-      const data = await res.json();
-      if (!res.ok || !data?.qrDataUrl) throw new Error(data?.message || 'Failed to generate cabin QR');
-      const img = document.createElement('img');
-      img.src = data.qrDataUrl;
-      img.style.cssText = 'width:180px;height:180px;border-radius:8px;';
-      el.appendChild(img);
+      new QRCode(el, { text: payload, width: 180, height: 180, colorDark: '#0F172A', colorLight: '#FFFFFF', correctLevel: QRCode.CorrectLevel.H });
+      setTimeout(() => { const c = el.querySelector('canvas'); if(c) c.style.display='none'; }, 50);
     } catch (e) {
-      el.innerHTML = `<p style="font-size:11px;color:var(--muted);word-break:break-all;">mediqueue://book?doctorId=${doctorId}&hospitalId=${qrHospitalId}</p>`;
-      console.error('Cabin QR modal render failed:', e);
+      el.innerHTML = `<p style="font-size:11px;color:var(--muted);word-break:break-all;">${payload}</p>`;
     }
     openModal('modal-cabin-qr');
   }
@@ -937,40 +927,27 @@
   }
 
   // ── RECEPTION QR (Hospital) ───────────────────────
-  async function loadReceptionQR() {
-  async function loadReceptionQR() {
+  function loadReceptionQR() {
     console.log('Current Hospital ID for QR:', hospitalId);
     const qrHospitalId = hospitalId || DEMO_HOSPITAL_ID;
     if (!hospitalId) console.warn('Using demo fallback hospital ID for QR:', DEMO_HOSPITAL_ID);
+    
+    document.getElementById('reception-qr-card').style.display = 'block';
+    document.getElementById('reception-hosp-name').textContent = hospitalName;
+    const payload = `mediqueue://hospital?id=${qrHospitalId}`;
+    document.getElementById('reception-qr-payload').textContent = payload;
+
+    const el = document.getElementById('qr-reception-render');
+    el.innerHTML = '';
     try {
-      const res  = await fetch(`${API}/hospitals/${qrHospitalId}/reception-qr`, { cache: 'no-store' });
-      const data = await res.json();
-      if (!res.ok) { toast('Failed to load Reception QR'); return; }
-
-      document.getElementById('reception-qr-card').style.display = 'block';
-      document.getElementById('reception-hosp-name').textContent = data.hospitalName;
-      document.getElementById('reception-qr-payload').textContent = data.payload;
-
-      const el = document.getElementById('qr-reception-render');
-      el.innerHTML = '';
-      if (data.qrDataUrl) {
-        const img = document.createElement('img');
-        img.src = data.qrDataUrl;
-        img.style.cssText = 'width:200px;height:200px;border-radius:10px;';
-        el.appendChild(img);
-      } else {
-        el.innerHTML = `<p style="font-size:11px;color:var(--muted);word-break:break-all;">${data.payload || ''}</p>`;
-      }
-    } catch (e) {
-      const el = document.getElementById('qr-reception-render');
-      el.innerHTML = '';
-      const payload = `mediqueue://hospital?id=${qrHospitalId}`;
+      new QRCode(el, { text: payload, width: 200, height: 200, colorDark: '#0F172A', colorLight: '#FFFFFF', correctLevel: QRCode.CorrectLevel.H });
+      setTimeout(() => { const c = el.querySelector('canvas'); if(c) c.style.display='none'; }, 50);
+    } catch(e) {
       el.innerHTML = `<p style="font-size:11px;color:var(--muted);word-break:break-all;">${payload}</p>`;
-      document.getElementById('reception-qr-card').style.display = 'block';
-      document.getElementById('reception-hosp-name').textContent = hospitalName;
-      document.getElementById('reception-qr-payload').textContent = payload;
     }
   }
+
+  function printReceptionQR() {
     const img = document.getElementById('qr-reception-render').querySelector('img');
     const win = window.open('');
     win.document.write(`<html><body style="text-align:center;padding:48px;font-family:sans-serif;">

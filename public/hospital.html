@@ -6,6 +6,7 @@
   <title>MediQueue — Hospital Portal</title>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,700;9..40,800;9..40,900&display=swap" rel="stylesheet"/>
   <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
   <style>
     :root{
       --primary:#2563EB;--primary-lt:rgba(37,99,235,0.08);
@@ -677,7 +678,10 @@
   async function loadDoctors() {
     try {
       // Guaranteed visibility: load all doctors directly from backend.
-      const res = await fetch('https://mediqueue-backend-el5a.onrender.com/api/doctors', { cache: 'no-store' });
+      const fetchUrl = hospitalId 
+        ? `https://mediqueue-backend-el5a.onrender.com/api/doctors?hospitalId=${hospitalId}`
+        : 'https://mediqueue-backend-el5a.onrender.com/api/doctors';
+      const res = await fetch(fetchUrl, { cache: 'no-store' });
       const responseData = await res.json();
 
       console.log('HOSPITAL DATA CHECK:', responseData);

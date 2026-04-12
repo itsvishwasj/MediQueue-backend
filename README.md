@@ -1,4 +1,4 @@
-# This is the backend part of the MediQueue Project
+## This is the backend part of the MediQueue Project
 
 # MediQueue: AI-Powered Symptom Triage & Smart Travel Logistics (Hackathon Project)
 

@@ -93,6 +93,3 @@ flutter run
 
 ## 📄 License
 Developed for Hackverse 2026. Open-source under the MIT License.
-
-## 📄 License
-Developed for Hackverse 2026. Open-source under the MIT License.

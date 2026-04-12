@@ -1,6 +1,6 @@
 ## This is the backend part of the MediQueue Project
 
-# MediQueue: AI-Powered Symptom Triage & Smart Travel Logistics (Hackathon Project)
+# MediQueue: AI-Powered Symptom Triage & Live Queue Management & Appointment Booking System (Hackathon Project)
 
 **MediQueue** is a full-stack healthcare ecosystem designed to eliminate hospital overcrowding and streamline the patient experience. By leveraging **Google Gemini AI** for intelligent symptom triage and integrating an **Open-Source Smart Travel Engine**, MediQueue ensures patients get to the right specialist exactly when it is their turn.
 
@@ -12,6 +12,8 @@
 * **Live Queue Monitoring:** Real-time, socket-driven visibility into current wait times and queue positions.
 * **Voice-Enabled Input:** Integrated Speech-to-Text for a hands-free, accessible symptom description experience.
 
+<img src="[https://github.com/user-attachments/assets/your-long-image-id-here](https://github.com/user-attachments/assets/2ece16d1-0115-46f6-8313-4126e6c7814e)" width="600" />
+
 ---
 
 ## 🏗️ Project Structure
@@ -22,7 +24,6 @@ The project is deployed across a three-tier architecture:
 MediQueue/
 ├── medi_queue_app/       # Flutter Mobile Application (iOS/Android)
 ├── mediqueue-backend/    # Node.js & Express API
-└── mediqueue-admin/      # Vanilla JS/React Admin Dashboard
 ```
 
 ---
@@ -89,6 +90,9 @@ flutter run
 | **GitHub Profile** | [itsvishwasj](https://github.com/itsvishwasj) |
 
 ---
+
+## 📄 License
+Developed for Hackverse 2026. Open-source under the MIT License.
 
 ## 📄 License
 Developed for Hackverse 2026. Open-source under the MIT License.
